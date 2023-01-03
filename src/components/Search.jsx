@@ -16,13 +16,13 @@ const Search = () => {
   };
   return (
     <>
-      <div className="max-w-[600px] w-full relative flex px-4 py-2 rounded-md border-2 border-accent/60">
+      <div className="relative flex w-full max-w-[600px] rounded-md border-2 border-accent/60 px-4 py-2">
         <BaseCurrency />
         <input
           type="text"
           name="input"
           id="input"
-          className="w-full px-4 py-2 focus:outline-none bg-transparent"
+          className="w-full bg-transparent px-4 py-2 focus:outline-none"
           placeholder="Search Crypto"
           value={input}
           onChange={(e) => setinput(e.target.value)}
@@ -39,7 +39,7 @@ const Search = () => {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
+            className="h-6 w-6"
           >
             <path
               strokeLinecap="round"

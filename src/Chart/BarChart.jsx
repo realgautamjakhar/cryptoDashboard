@@ -4,17 +4,6 @@ import { Line, Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-const config = {
-  animations: {
-    tension: {
-      duration: 1000,
-      easing: "linear",
-      from: 1,
-      to: 0,
-      loop: true,
-    },
-  },
-};
 
 const BarChart = () => {
   const chartData = useSelector((state) => state.chart.chartData);
@@ -36,7 +25,7 @@ const BarChart = () => {
         new Date(d[0]).toLocaleDateString("en-US", {
           day: "numeric",
           month: "numeric",
-          year: "numeric",
+          // year: "numeric",
         })
       ),
       datasets: [
@@ -53,10 +42,15 @@ const BarChart = () => {
 
   return (
     <div
-      className="flex justify-center"
-      style={{ position: "relative", height: "40vh", width: "80vw" }}
+      style={{
+        position: "relative",
+        margin: "auto",
+        height: "100%",
+        width: "90%",
+      }}
+      className=" grid place-content-center overflow-hidden"
     >
-      <Line data={UserData} options={config} />
+      <Line data={UserData} />
     </div>
   );
 };

@@ -1,11 +1,14 @@
 import React from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 
-const DropDown = ({ data, input, setinput }) => {
+const DropDown = ({ data, coin, update }) => {
+  const dispatch = useDispatch();
+  const [input, setinput] = useState();
   const [isOpen, setisOpen] = useState(false);
   function handleisOpen(e) {
-    setinput(e.target.value);
     setisOpen(true);
+    setinput(e.target.value);
     document.addEventListener("click", (e) => MouseClick(e));
   }
 
@@ -15,14 +18,15 @@ const DropDown = ({ data, input, setinput }) => {
       document.removeEventListener("click", MouseClick);
     }
   }
-  function handleSelection(crypto) {
-    setinput(crypto.name);
+  function handleSelection(coin) {
+    dispatch(update(coin));
+    setinput(coin.name);
     setisOpen(false);
   }
   return (
-    <div className="max-w-[200px] relative flex items-center px-2 border-2 ">
+    <div className="relative flex max-w-[200px] items-center border-2 px-2 ">
       <input
-        className="py-2 text-base focus:outline-none w-full bg-transparent "
+        className="w-full bg-transparent py-2 text-base focus:outline-none "
         type="text"
         onChange={(e) => handleisOpen(e)}
         value={input}
@@ -34,7 +38,7 @@ const DropDown = ({ data, input, setinput }) => {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             strokeWidth={2}
-            className="w-5 h-6 stroke-accent"
+            className="h-6 w-5 stroke-accent"
           >
             <path
               strokeLinecap="round"
@@ -49,7 +53,7 @@ const DropDown = ({ data, input, setinput }) => {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             strokeWidth={2}
-            className="w-5 h-5 stroke-accent bg-white "
+            className="h-5 w-5 bg-white stroke-accent "
           >
             <path
               strokeLinecap="round"
@@ -60,10 +64,10 @@ const DropDown = ({ data, input, setinput }) => {
         </button>
       )}
 
-      {input && isOpen ? (
+      {isOpen ? (
         <ul
           id="dropdown"
-          className="absolute bg-white overflow-x-hidden top-14 h-28  grid gap-2 left-0 custom-scroll overflow-y-scroll w-full z-50"
+          className="custom-scroll absolute top-14 left-0 z-50  grid h-28 w-full gap-2 overflow-x-hidden overflow-y-scroll bg-white"
         >
           {data
             ?.filter((crypto) =>
@@ -74,7 +78,7 @@ const DropDown = ({ data, input, setinput }) => {
               return (
                 <li
                   key={id}
-                  className="bg-white w-full px-2 py-2 text-xs cursor-pointer hover:bg-accent/50 hover:text-white"
+                  className="w-full cursor-pointer bg-white px-2 py-2 text-xs hover:bg-accent/50 hover:text-white"
                   onClick={() => handleSelection(crypto)}
                 >
                   {name}

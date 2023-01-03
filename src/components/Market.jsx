@@ -5,6 +5,7 @@ import { container, item } from "../utils/animation";
 import { fetchMarket } from "../features/marketSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchChartData, updateCoin } from "../features/chartSlice";
+import Card from "./Card";
 const Market = () => {
   //Redux
   const baseCurr = useSelector((state) => state.search.baseCurrency);
@@ -31,20 +32,20 @@ const Market = () => {
     dispatch(fetchChartData({ coin: id, baseCurr, filter }));
   }
   return (
-    <div className="h-full grid grid-rows-[auto_1fr] w-full mx-auto  border-2 border-accent/20 rounded-md">
-      <h2 className="px-4 text-3xl font-semibold py-6 capitalize ">
+    <div className="mx-auto grid h-full w-full grid-rows-[auto_1fr] rounded-md border-2 border-accent/20">
+      <h2 className="px-4 py-6 text-3xl font-semibold capitalize ">
         Cryptocurrency by market cap
       </h2>
       {loading ? (
         <div className=" grid place-content-center">
-          <img src="/assets/loading.svg" className=" w-16 h-16 " alt="" />
+          <img src="/assets/loading.svg" className=" h-16 w-16 " alt="" />
         </div>
       ) : (
         <motion.ul
           variants={container}
           initial="hidden"
           animate="show"
-          className="grid px-4 py-4 gap-2 overflow-y-scroll overflow-x-hidden custom-scroll "
+          className="custom-scroll grid gap-2 overflow-x-hidden overflow-y-scroll px-4 py-4 "
         >
           {data?.map((coin) => {
             const {
@@ -63,17 +64,17 @@ const Market = () => {
                 animate="show"
                 key={id}
                 onClick={() => handleClick(coin)}
-                className="flex justify-between px-4 py-4 rounded-md hover:bg-accent/40 cursor-pointer duration-300 ease-in-out"
+                className="flex cursor-pointer justify-between rounded-md px-4 py-4 duration-300 ease-in-out hover:bg-accent/40"
               >
-                <div className="flex gap-4 items-center">
+                <div className="flex items-center gap-4">
                   <img
                     src={image}
-                    className="w-10 h-10 object-contain"
+                    className="h-10 w-10 object-contain"
                     alt={name}
                   />
                   <div>
                     <div>
-                      <span className="font-bold text-base">{name}</span>
+                      <span className="text-base font-bold">{name}</span>
                       <span className=" text-sm font-light">({symbol})</span>
                     </div>
                     <span
@@ -88,7 +89,7 @@ const Market = () => {
                     </span>
                   </div>
                 </div>
-                <div className="md:flex  hidden flex-col">
+                <div className="hidden  flex-col md:flex">
                   <div>
                     <p>{marketCapTobillion(market_cap)}billions</p>
                   </div>
@@ -99,7 +100,7 @@ const Market = () => {
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
-                        className="w-6 h-6 stroke-green-700 stroke-2"
+                        className="h-6 w-6 stroke-green-700 stroke-2"
                       >
                         <path
                           strokeLinecap="round"
@@ -113,7 +114,7 @@ const Market = () => {
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
-                        className="w-6 h-6 stroke-red-700 stroke-2"
+                        className="h-6 w-6 stroke-red-700 stroke-2"
                       >
                         <path
                           strokeLinecap="round"
