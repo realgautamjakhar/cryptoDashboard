@@ -41,7 +41,7 @@ const BarChart = () => {
   }, [chartData]);
 
   return (
-    <div className=" flex justify-center lg:w-full md:w-[500px] w-[300px]">
+    <div className=" flex justify-center lg:w-full md:w-[500px] w-[280px]">
       <Line data={UserData} />
     </div>
   );
