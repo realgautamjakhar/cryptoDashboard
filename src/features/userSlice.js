@@ -7,7 +7,7 @@ const userSlice = createSlice({
       { id: "bitcoin", name: "Bitcoin", value: 300 },
       { id: "ethereum", name: "Ethereum", value: 300 },
       { id: "tether", name: "Tether", value: 400 },
-      { id: "usdc", name: "USD Coin", value: 1000 },
+      { id: "ripple", name: "XRP", value: 1000 },
     ],
   },
   reducers: {
