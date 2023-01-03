@@ -4,6 +4,7 @@ import BaseCurrency from "./BaseCurrency";
 import SearchResult from "./SearchResult";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchBestMatches } from "../features/searchSlice";
+import ThemeToggle from "./ThemeToggle";
 const Search = () => {
   const [input, setinput] = useState("");
   const bestMatches = useSelector((state) => state.search.bestMatches);
@@ -14,15 +15,16 @@ const Search = () => {
   const fetchMatches = async () => {
     dispatch(fetchBestMatches(input));
   };
+
   return (
-    <div className="relative flex w-full max-w-[600px] rounded-sm  px-4 py-2 shadow-md shadow-accent/70">
+    <div className="relative flex w-full max-w-[600px] rounded-sm  border-2 border-accent px-4 py-2 ">
       <BaseCurrency />
       <input
         type="text"
         name="input"
         id="input"
-        className="w-full bg-transparent px-4 py-2 focus:outline-none"
-        placeholder="Search Crypto"
+        className="w-full bg-transparent px-4 py-2 text-lightPrimary placeholder:text-lightSecondary focus:outline-none dark:text-DarkPrimary placeholder:dark:text-DarkSecondary "
+        placeholder="Search Crypto  "
         value={input}
         onChange={(e) => setinput(e.target.value)}
         onKeyDown={(e) => {
@@ -36,7 +38,7 @@ const Search = () => {
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          strokeWidth={1.5}
+          strokeWidth={3}
           className="h-6 w-6 stroke-accent/70"
         >
           <path
@@ -50,6 +52,7 @@ const Search = () => {
       {input && bestMatches && (
         <SearchResult setinput={setinput} data={bestMatches} />
       )}
+      <ThemeToggle />
     </div>
   );
 };

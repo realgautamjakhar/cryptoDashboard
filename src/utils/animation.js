@@ -1,23 +1,21 @@
-export const container = {
+export const Staggercontainer = {
   hidden: {
     opacity: 0,
   },
   show: {
     opacity: 1,
     transition: {
-      delayChildren: 0.5,
-      staggerDirection: -1,
-      staggerChildren: 0.5,
-      type: "tween",
+      duration: 0.1,
+      delayChildren: 0.2,
+      staggerChildren: 0.1,
     },
   },
 };
 
-export const item = {
-  hidden: {
-    opacity: 0,
-  },
+export const Staggeritem = {
+  hidden: { opacity: 0, scale: 0 },
   show: {
     opacity: 1,
+    scale: 1,
   },
 };

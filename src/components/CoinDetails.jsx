@@ -6,7 +6,7 @@ const CoinDetails = () => {
   const baseCurr = useSelector((state) => state.search.baseCurrency);
   console.log(coin);
   return (
-    <div className=" grid h-full w-full grid-cols-2 grid-rows-1 gap-2 rounded-md border-2 border-accent/50 p-4 md:grid-cols-1 md:grid-rows-2">
+    <div className=" grid h-full w-full grid-cols-2 grid-rows-1 gap-2 p-4 md:grid-cols-1 md:grid-rows-2">
       <div className=" grid h-full w-full place-content-start gap-2">
         <div className=" flex items-center gap-2">
           <img src={coin.image} className="w-10" alt={coin.name} />

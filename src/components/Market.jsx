@@ -1,11 +1,10 @@
 import React from "react";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { container, item } from "../utils/animation";
 import { fetchMarket } from "../features/marketSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchChartData, updateCoin } from "../features/chartSlice";
-import Card from "./Card";
+import { Staggercontainer, Staggeritem } from "../utils/animation";
 const Market = () => {
   //Redux
   const baseCurr = useSelector((state) => state.search.baseCurrency);
@@ -32,8 +31,8 @@ const Market = () => {
     dispatch(fetchChartData({ coin: id, baseCurr, filter }));
   }
   return (
-    <div className="mx-auto grid h-full w-full grid-rows-[auto_1fr] rounded-md border-2 border-accent/20 shadow-md shadow-accent/70">
-      <h2 className="px-4 py-6 text-3xl font-semibold capitalize ">
+    <div className="mx-auto grid h-full w-full grid-rows-[auto_1fr] rounded-md border-2 border-accent">
+      <h2 className="border-b-2 border-lightSecondary/20 px-4 py-4 text-end text-3xl font-semibold capitalize text-lightPrimary dark:border-DarkSecondary/20 dark:text-DarkPrimary">
         Cryptocurrency by market cap
       </h2>
       {loading ? (
@@ -42,12 +41,12 @@ const Market = () => {
         </div>
       ) : (
         <motion.ul
-          variants={container}
+          variants={Staggercontainer}
           initial="hidden"
           animate="show"
           className="custom-scroll grid gap-2 overflow-x-hidden overflow-y-scroll px-4 py-4 "
         >
-          {data?.map((coin) => {
+          {data?.slice(0, 20).map((coin) => {
             const {
               name,
               market_cap,
@@ -59,9 +58,7 @@ const Market = () => {
             } = coin;
             return (
               <motion.li
-                variants={item}
-                initial="hidden"
-                animate="show"
+                variants={Staggeritem}
                 key={id}
                 onClick={() => handleClick(coin)}
                 className="flex cursor-pointer justify-between rounded-md px-4 py-4 duration-300 ease-in-out hover:bg-accent/40"
@@ -74,24 +71,28 @@ const Market = () => {
                   />
                   <div>
                     <div>
-                      <span className="text-base font-bold">{name}</span>
-                      <span className=" text-sm font-light">({symbol})</span>
+                      <span className="text-base font-bold text-lightPrimary dark:text-DarkPrimary">
+                        {name}
+                      </span>
+                      <span className=" pl-1 text-sm font-light uppercase text-lightSecondary dark:text-DarkSecondary">
+                        ({symbol})
+                      </span>
                     </div>
                     <span
-                      className={`text-base ${
-                        current_price < 0 ? "text-red-600" : "text-green-600"
-                      }`}
+                      className={`text-base text-lightSecondary dark:text-DarkSecondary`}
                     >
                       {current_price}{" "}
                     </span>
-                    <span className=" text-sm font-light capitalize">
+                    <span className=" text-sm font-light capitalize text-lightSecondary dark:text-DarkSecondary">
                       {baseCurr}
                     </span>
                   </div>
                 </div>
                 <div className="hidden  flex-col md:flex">
                   <div>
-                    <p>{marketCapTobillion(market_cap)}billions</p>
+                    <p className="text-lightPrimary dark:text-DarkPrimary">
+                      {marketCapTobillion(market_cap)}billions
+                    </p>
                   </div>
                   <div className="flex gap-4 self-end">
                     {price_change_percentage_24h > 0 ? (
@@ -100,7 +101,7 @@ const Market = () => {
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
-                        className="stroke-green-700 h-6 w-6 stroke-2"
+                        className="h-6 w-6 stroke-green stroke-2"
                       >
                         <path
                           strokeLinecap="round"
@@ -114,7 +115,7 @@ const Market = () => {
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
-                        className="stroke-red-700 h-6 w-6 stroke-2"
+                        className="h-6 w-6 stroke-red stroke-2"
                       >
                         <path
                           strokeLinecap="round"
@@ -123,7 +124,9 @@ const Market = () => {
                         />
                       </svg>
                     )}
-                    <span>{price_change_percentage_24h.toFixed(2)}%</span>
+                    <span className="text-lightSecondary dark:text-DarkSecondary">
+                      {price_change_percentage_24h?.toFixed(2)}%
+                    </span>
                   </div>
                 </div>
               </motion.li>

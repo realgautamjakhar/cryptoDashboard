@@ -25,10 +25,14 @@ const Portfolio = () => {
     ],
   };
   return (
-    <div className="grid h-full grid-rows-[auto_1fr] gap-4 rounded-md border-2 border-accent/20 p-4">
+    <div className="grid h-full grid-rows-[auto_1fr] gap-4 rounded-md border-2 border-accent p-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-3xl font-semibold">Portfolio</h2>
-        <p className=" text-gray-400">Your Tokens</p>
+        <h2 className="text-3xl font-semibold text-lightPrimary dark:text-DarkPrimary">
+          Portfolio
+        </h2>
+        <p className=" text-lightSecondary dark:text-DarkSecondary">
+          Your Tokens
+        </p>
       </div>
       <div
         style={{

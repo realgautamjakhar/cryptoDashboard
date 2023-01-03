@@ -5,7 +5,7 @@ export const fetchMarket = createAsyncThunk(
   "market/fetch",
   async (baseCurr = "usd") => {
     const response = await fetch(
-      `${base}/coins/markets?vs_currency=${baseCurr}&order=market_cap_desc&per_page=100&page=1&sparkline=false`
+      `${base}/coins/markets?vs_currency=${baseCurr}&order=market_cap_desc&per_page=250&page=1&sparkline=false`
     );
     return await response.json();
   }

@@ -22,9 +22,9 @@ export default function ComboxBox({ data, coin, update }) {
   return (
     <Combobox value={selected} onChange={setSelected}>
       <div className="relative ">
-        <div className="relative w-full cursor-default overflow-hidden  bg-white text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 sm:text-sm">
+        <div className="relative w-full cursor-default overflow-hidden  bg-light text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 dark:bg-dark sm:text-sm">
           <Combobox.Input
-            className="w-full border-none py-2 pl-3 pr-10 text-base leading-5 text-gray-900 focus:outline-none"
+            className="w-full border-none bg-transparent py-2 pl-3 pr-10 text-base leading-5 text-lightPrimary focus:outline-none dark:text-DarkPrimary"
             displayValue={selected}
             onChange={(event) => setQuery(event.target.value)}
             placeholder="Select Coin"
@@ -52,9 +52,9 @@ export default function ComboxBox({ data, coin, update }) {
           leaveTo="opacity-0"
           afterLeave={() => setQuery("")}
         >
-          <Combobox.Options className="custom-scroll absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+          <Combobox.Options className="custom-scroll absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-bgLightSecondary py-1 text-base bg-blend-hard-light shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-bgDarkSecondary sm:text-sm">
             {filteredCoins?.length === 0 && query !== "" ? (
-              <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
+              <div className="relative cursor-default select-none py-2 px-4 text-lightPrimary dark:text-DarkPrimary">
                 Nothing found.
               </div>
             ) : (
@@ -63,7 +63,9 @@ export default function ComboxBox({ data, coin, update }) {
                   key={coin.id}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? "bg-accent/70 text-white" : "text-gray-900"
+                      active
+                        ? "bg-accent/70 text-white"
+                        : "text-lightPrimary dark:text-DarkPrimary"
                     } hover:cursor-pointer`
                   }
                   value={coin.name}
