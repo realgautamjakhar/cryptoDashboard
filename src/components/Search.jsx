@@ -15,45 +15,42 @@ const Search = () => {
     dispatch(fetchBestMatches(input));
   };
   return (
-    <>
-      <div className="relative flex w-full max-w-[600px] rounded-md border-2 border-accent/60 px-4 py-2">
-        <BaseCurrency />
-        <input
-          type="text"
-          name="input"
-          id="input"
-          className="w-full bg-transparent px-4 py-2 focus:outline-none"
-          placeholder="Search Crypto"
-          value={input}
-          onChange={(e) => setinput(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.code === "Enter") {
-              fetchMatches();
-            }
-          }}
-        />
-        <button onClick={() => fetchMatches()}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="h-6 w-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-            />
-          </svg>
-        </button>
+    <div className="relative flex w-full max-w-[600px] rounded-sm  px-4 py-2 shadow-md shadow-accent/70">
+      <BaseCurrency />
+      <input
+        type="text"
+        name="input"
+        id="input"
+        className="w-full bg-transparent px-4 py-2 focus:outline-none"
+        placeholder="Search Crypto"
+        value={input}
+        onChange={(e) => setinput(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.code === "Enter") {
+            fetchMatches();
+          }
+        }}
+      />
+      <button onClick={() => fetchMatches()}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth={1.5}
+          className="h-6 w-6 stroke-accent/70"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+          />
+        </svg>
+      </button>
 
-        {input && bestMatches && (
-          <SearchResult setinput={setinput} data={bestMatches} />
-        )}
-      </div>
-    </>
+      {input && bestMatches && (
+        <SearchResult setinput={setinput} data={bestMatches} />
+      )}
+    </div>
   );
 };
 

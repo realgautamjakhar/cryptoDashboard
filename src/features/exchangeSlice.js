@@ -18,6 +18,7 @@ const exchangeSlice = createSlice({
     sellCoin: {},
     buyCoinCurrentPrice: 0,
     sellCoinCurrentPrice: 0,
+    amount: 0,
   },
   reducers: {
     updateBuyCoin(state, action) {
@@ -32,6 +33,9 @@ const exchangeSlice = createSlice({
     updateSellCoinCurrentPrice(state, action) {
       state.sellCoinCurrentPrice = action.payload;
     },
+    updateamount(state, action) {
+      state.amount = action.payload;
+    },
   },
 });
 
@@ -40,5 +44,6 @@ export const {
   updateSellCoin,
   updateSellCoinCurrentPrice,
   updateBuyCoinCurrentPrice,
+  updateamount,
 } = exchangeSlice.actions;
 export default exchangeSlice.reducer;

@@ -32,7 +32,7 @@ const Market = () => {
     dispatch(fetchChartData({ coin: id, baseCurr, filter }));
   }
   return (
-    <div className="mx-auto grid h-full w-full grid-rows-[auto_1fr] rounded-md border-2 border-accent/20">
+    <div className="mx-auto grid h-full w-full grid-rows-[auto_1fr] rounded-md border-2 border-accent/20 shadow-md shadow-accent/70">
       <h2 className="px-4 py-6 text-3xl font-semibold capitalize ">
         Cryptocurrency by market cap
       </h2>
@@ -100,7 +100,7 @@ const Market = () => {
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
-                        className="h-6 w-6 stroke-green-700 stroke-2"
+                        className="stroke-green-700 h-6 w-6 stroke-2"
                       >
                         <path
                           strokeLinecap="round"
@@ -114,7 +114,7 @@ const Market = () => {
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
-                        className="h-6 w-6 stroke-red-700 stroke-2"
+                        className="stroke-red-700 h-6 w-6 stroke-2"
                       >
                         <path
                           strokeLinecap="round"

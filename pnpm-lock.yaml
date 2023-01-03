@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@headlessui/react': ^1.7.7
   '@reduxjs/toolkit': ^1.9.1
   '@tailwindcss/line-clamp': ^0.4.2
   '@types/react': ^18.0.26
@@ -15,11 +16,13 @@ specifiers:
   react: ^18.2.0
   react-chartjs-2: ^5.1.0
   react-dom: ^18.2.0
+  react-hot-toast: ^2.4.0
   react-redux: ^8.0.5
   tailwindcss: ^3.2.4
   vite: ^4.0.0
 
 dependencies:
+  '@headlessui/react': 1.7.7_biqbaboplfbrettd7655fr4n2y
   '@reduxjs/toolkit': 1.9.1_k4ae6lp43ej6mezo3ztvx6pykq
   '@tailwindcss/line-clamp': 0.4.2_tailwindcss@3.2.4
   autoprefixer: 10.4.13_postcss@8.4.20
@@ -29,6 +32,7 @@ dependencies:
   react: 18.2.0
   react-chartjs-2: 5.1.0_dxa6kz4w32vmgoazz4fv7vwm2e
   react-dom: 18.2.0_react@18.2.0
+  react-hot-toast: 2.4.0_biqbaboplfbrettd7655fr4n2y
   react-redux: 8.0.5_ie75ejlwqy5zh3tldgt7pftwcu
   tailwindcss: 3.2.4_postcss@8.4.20
 
@@ -487,6 +491,18 @@ packages:
     dev: true
     optional: true
 
+  /@headlessui/react/1.7.7_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-BqDOd/tB9u2tA0T3Z0fn18ktw+KbVwMnkxxsGPIH2hzssrQhKB5n/6StZOyvLYP/FsYtvuXfi9I0YowKPv2c1w==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: ^16 || ^17 || ^18
+      react-dom: ^16 || ^17 || ^18
+    dependencies:
+      client-only: 0.0.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    dev: false
+
   /@jridgewell/gen-mapping/0.1.1:
     resolution: {integrity: sha512-sQXCasFk+U8lWYEe66WxRDOE9PjVz4vSM51fTu3Hw+ClTpUSQb718772vH3pyS5pShp6lvQM7SxgIDXXXmOX7w==}
     engines: {node: '>=6.0.0'}
@@ -784,6 +800,10 @@ packages:
       fsevents: 2.3.2
     dev: false
 
+  /client-only/0.0.1:
+    resolution: {integrity: sha512-IV3Ou0jSMzZrd3pZ48nLkT9DA7Ag1pnPzaiQhpW7c3RbcqqzvzzVu+L8gfqMp/8IM2MQtSiqaCxrrcfu8I8rMA==}
+    dev: false
+
   /color-convert/1.9.3:
     resolution: {integrity: sha512-QfAUtd+vFdAtFQcC8CCyYt1fYWxSqAiK2cSD6zDB8N3cpsEBAvRxp9zOGg6G/SHHJYAT88/az/IuDGALsNVbGg==}
     dependencies:
@@ -963,6 +983,12 @@ packages:
     resolution: {integrity: sha512-WOBp/EEGUiIsJSp7wcv/y6MO+lV9UoncWqxuFfm8eBwzWNgyfBd6Gz+IeKQ9jCmyhoH99g15M3T+QaVHFjizVA==}
     engines: {node: '>=4'}
     dev: true
+
+  /goober/2.1.11:
+    resolution: {integrity: sha512-5SS2lmxbhqH0u9ABEWq7WPU69a4i2pYcHeCxqaNq6Cw3mnrF0ghWNM4tEGid4dKy8XNIAUbuThuozDHHKJVh3A==}
+    peerDependencies:
+      csstype: ^3.0.10
+    dev: false
 
   /has-flag/3.0.0:
     resolution: {integrity: sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw==}
@@ -1229,6 +1255,20 @@ packages:
       loose-envify: 1.4.0
       react: 18.2.0
       scheduler: 0.23.0
+    dev: false
+
+  /react-hot-toast/2.4.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-qnnVbXropKuwUpriVVosgo8QrB+IaPJCpL8oBI6Ov84uvHZ5QQcTp2qg6ku2wNfgJl6rlQXJIQU5q+5lmPOutA==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    dependencies:
+      goober: 2.1.11
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    transitivePeerDependencies:
+      - csstype
     dev: false
 
   /react-is/16.13.1:
