@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root{
+      background-image: url('/assets/bg.svg');
+      background-color: #FDFDFF;
+}
+
+*{
+      font-family: 'Poppins', sans-serif;
+}
+
+.gridLayout{
+      display: grid;
+      height: 100vh;
+      width: 100%;
+      grid-template-rows:auto 50% auto;
+      grid-template-columns: 1fr 1fr 25%;
+      grid-template-areas: 'search search marketcap'
+      'chart chart marketcap'
+      'portfolio exchange marketcap';
+}
+
+.search {
+      grid-area: search;
+      padding: 1rem;
+}
+.marketcap{
+      grid-area: marketcap;
+      max-height: 100vh;
+      padding: 1rem;
+}
+.chart {
+      grid-area: chart;
+      padding: 1rem;
+}
+.portfolio{
+      grid-area: portfolio;
+      padding: 1rem;
+}
+.exchange {
+      grid-area: exchange;
+      padding: 1rem;
+}
+
+@media screen and (max-width: 1000px) {
+      .gridLayout{
+            display: grid;
+            grid-template-columns: 1fr;
+            grid-template-areas: 'search  '
+                              'marketcap '
+                              'chart '
+                              'portfolio'
+                              'exchange';
+      }
+}
