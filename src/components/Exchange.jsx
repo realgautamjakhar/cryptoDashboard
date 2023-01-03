@@ -19,7 +19,7 @@ const Exchange = () => {
   return (
     <div className="flex flex-col  justify-center gap-4 px-6 py-6 h-full border-2 border-accent/20 rounded-md">
       <p className="text-2xl font-bold">Exchange Coins</p>
-      <div className="flex gap-6 justify-between">
+      <div className="flex flex-col md:flex-row items-center gap-6 justify-between">
         <div className="flex flex-col gap-4">
           <div className=" flex items-center gap-4">
             <p className=" text-green-700 font-medium">Buy</p>
