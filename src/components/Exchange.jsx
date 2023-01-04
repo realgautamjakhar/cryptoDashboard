@@ -15,18 +15,16 @@ import Modal from "./headlessUI/Modal";
 import { useState } from "react";
 import { deposit, withdrew } from "../features/userSlice";
 import { motion } from "framer-motion";
+import { error, success } from "../utils/toast";
 
 const Exchange = () => {
   let [isOpen, setIsOpen] = useState(false);
-  const baseCurr = useSelector((state) => state.search.baseCurrency);
   const portfolio = useSelector((state) => state.user.portfolio);
   const coins = useSelector((state) => state.market.value);
   const buy = useSelector((state) => state.exchange.buy);
   const sell = useSelector((state) => state.exchange.sell);
   const input = useSelector((state) => state.exchange.amount);
-
   const [exchangedamount, setexchangedamount] = useState(0);
-
   const buyPrice = useSelector((state) => state.exchange.buyPrice);
   const sellPrice = useSelector((state) => state.exchange.sellPrice);
 
@@ -55,18 +53,16 @@ const Exchange = () => {
     const coinExist = portfolio.find((coin) => coin.id === sell.id);
 
     if (coinExist.amount > Number(input)) {
-      console.log("Withdrew");
-      toast("You can withdrew");
       dispatch(withdrew({ sell, input }));
       dispatch(deposit({ buy, depositedAmount: exchangedamount }));
       toast(
-        `${exchangedamount} ${buy.name} Exchanged for ${input} ${sell.name}`
+        `${exchangedamount} ${buy.name} Exchanged for ${input} ${sell.name}`,
+        success
       );
     } else if (coinExist.amount < Number(input)) {
-      toast("Insufficient balance");
+      toast("Insufficient balance", error);
     }
   }
-  console.log(exchangedamount);
   function handleCurrencyConvert() {
     const result =
       (sellPrice?.market_data?.current_price?.usd * input) /
@@ -85,7 +81,14 @@ const Exchange = () => {
 
   return (
     <div className=" grid h-full gap-4 rounded-md bg-gradient1 px-4 py-4 shadow-exchangeCardShadow dark:shadow-none">
-      <Toaster />
+      <Toaster
+        containerStyle={{
+          top: 20,
+          left: 20,
+          bottom: 20,
+          right: 20,
+        }}
+      />
       <p className="text-3xl font-semibold text-DarkPrimary">Exchange Coins</p>
       <Modal isModalOpen={isOpen} update={setIsOpen} />
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">

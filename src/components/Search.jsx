@@ -52,7 +52,7 @@ const Search = () => {
       {input && bestMatches && (
         <SearchResult setinput={setinput} data={bestMatches} />
       )}
-      <ThemeToggle />
+      {/* <ThemeToggle /> */}
     </div>
   );
 };
