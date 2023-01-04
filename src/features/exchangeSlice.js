@@ -14,24 +14,24 @@ export const fetchCurrentPrice = createAsyncThunk(
 const exchangeSlice = createSlice({
   name: "exchange",
   initialState: {
-    buyCoin: {},
-    sellCoin: {},
-    buyCoinCurrentPrice: 0,
-    sellCoinCurrentPrice: 0,
+    buy: {},
+    sell: {},
+    buyPrice: 0,
+    sellPrice: 0,
     amount: 0,
   },
   reducers: {
-    updateBuyCoin(state, action) {
-      state.buyCoin = action.payload;
+    updateBuy(state, action) {
+      state.buy = action.payload;
     },
-    updateSellCoin(state, action) {
-      state.sellCoin = action.payload;
+    updateSell(state, action) {
+      state.sell = action.payload;
     },
-    updateBuyCoinCurrentPrice(state, action) {
-      state.buyCoinCurrentPrice = action.payload;
+    updateBuyPrice(state, action) {
+      state.buyPrice = action.payload;
     },
-    updateSellCoinCurrentPrice(state, action) {
-      state.sellCoinCurrentPrice = action.payload;
+    updateSellPrice(state, action) {
+      state.sellPrice = action.payload;
     },
     updateamount(state, action) {
       state.amount = action.payload;
@@ -40,10 +40,10 @@ const exchangeSlice = createSlice({
 });
 
 export const {
-  updateBuyCoin,
-  updateSellCoin,
-  updateSellCoinCurrentPrice,
-  updateBuyCoinCurrentPrice,
+  updateBuy,
+  updateSell,
+  updateSellPrice,
+  updateBuyPrice,
   updateamount,
 } = exchangeSlice.actions;
 export default exchangeSlice.reducer;

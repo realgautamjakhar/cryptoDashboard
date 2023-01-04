@@ -17,7 +17,7 @@ const Search = () => {
   };
 
   return (
-    <div className="relative flex w-full max-w-[600px] rounded-sm  border-2 border-accent px-4 py-2 ">
+    <div className=" relative flex w-full max-w-[600px] rounded-[50px] bg-light  px-4  py-2 shadow-shadow1 dark:border-2 dark:border-accent dark:bg-dark dark:shadow-none">
       <BaseCurrency />
       <input
         type="text"

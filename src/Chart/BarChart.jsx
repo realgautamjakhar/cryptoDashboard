@@ -4,10 +4,20 @@ import { Line, Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useRef } from "react";
 
 const BarChart = () => {
+  const chartRef = useRef();
   const chartData = useSelector((state) => state.chart.chartData);
   const coin = useSelector((state) => state.chart.coin);
+
+  function generateGradient() {
+    let gradient = chartRef.current.ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, "rgba(162, 102, 246, 1)");
+    gradient.addColorStop(0.5, "rgba(203, 159, 249, 1)");
+    gradient.addColorStop(1, "rgba(203, 159, 249, 1)");
+    return gradient;
+  }
 
   const [UserData, setUserData] = useState({
     labels: chartData?.prices?.map((d) => new Date().toLocaleDateString(d[0])),
@@ -31,9 +41,11 @@ const BarChart = () => {
       datasets: [
         {
           label: `${coin.id}`,
-          borderColor: "#736CED",
-          backgroundColor: "#736CED",
-
+          borderColor: "transparent",
+          fill: true,
+          hitRadius: 30,
+          tension: 0.4,
+          backgroundColor: generateGradient(),
           data: chartData?.prices?.map((d) => d[1]),
         },
       ],
@@ -50,7 +62,7 @@ const BarChart = () => {
       }}
       className=" grid place-content-center overflow-hidden"
     >
-      <Line data={UserData} />
+      <Line ref={chartRef} data={UserData} />
     </div>
   );
 };

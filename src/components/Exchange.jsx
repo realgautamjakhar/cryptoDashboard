@@ -5,34 +5,30 @@ import { Toaster, toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateamount,
-  updateBuyCoin,
-  updateBuyCoinCurrentPrice,
-  updateSellCoin,
-  updateSellCoinCurrentPrice,
+  updateBuy,
+  updateBuyPrice,
+  updateSell,
+  updateSellPrice,
 } from "../features/exchangeSlice";
 import ComboxBox from "./headlessUI/ComboBox";
 import Modal from "./headlessUI/Modal";
 import { useState } from "react";
-import { withdrew } from "../features/userSlice";
+import { deposit, withdrew } from "../features/userSlice";
 import { motion } from "framer-motion";
 
 const Exchange = () => {
   let [isOpen, setIsOpen] = useState(false);
   const baseCurr = useSelector((state) => state.search.baseCurrency);
-  const usersCoin = useSelector((state) => state.user.coins);
+  const portfolio = useSelector((state) => state.user.portfolio);
   const coins = useSelector((state) => state.market.value);
-  const buyCoin = useSelector((state) => state.exchange.buyCoin);
-  const sellCoin = useSelector((state) => state.exchange.sellCoin);
-  const enteredAmount = useSelector((state) => state.exchange.amount);
+  const buy = useSelector((state) => state.exchange.buy);
+  const sell = useSelector((state) => state.exchange.sell);
+  const input = useSelector((state) => state.exchange.amount);
 
-  const [amountConverted, setconvertedCoin] = useState();
+  const [exchangedamount, setexchangedamount] = useState(0);
 
-  const buyCoinCurrentPrice = useSelector(
-    (state) => state.exchange.buyCoinCurrentPrice
-  );
-  const sellCoinCurrentPrice = useSelector(
-    (state) => state.exchange.sellCoinCurrentPrice
-  );
+  const buyPrice = useSelector((state) => state.exchange.buyPrice);
+  const sellPrice = useSelector((state) => state.exchange.sellPrice);
 
   const dispatch = useDispatch();
 
@@ -44,73 +40,89 @@ const Exchange = () => {
   }
 
   async function getCurrentPrice() {
-    if (buyCoin.id && sellCoin.id) {
-      dispatch(updateBuyCoinCurrentPrice(await fetchCurrentPrice(buyCoin)));
-      dispatch(updateSellCoinCurrentPrice(await fetchCurrentPrice(sellCoin)));
+    if (buy.id && sell.id) {
+      dispatch(updateBuyPrice(await fetchCurrentPrice(buy)));
+      dispatch(updateSellPrice(await fetchCurrentPrice(sell)));
     }
   }
 
   function handleExchange() {
-    if (!usersCoin.length) {
+    if (!portfolio.length) {
       toast("You are Broke");
     }
-    const userHaveCoin = usersCoin.find((coin) => coin.id === sellCoin.id);
-    if (userHaveCoin.value > Number(enteredAmount)) {
-      dispatch(withdrew({ sellCoin, enteredAmount }));
-    }
-    setIsOpen(true);
-  }
 
+    //Check weather user have selling coin and amount above the limit
+    const coinExist = portfolio.find((coin) => coin.id === sell.id);
+
+    if (coinExist.amount > Number(input)) {
+      console.log("Withdrew");
+      toast("You can withdrew");
+      dispatch(withdrew({ sell, input }));
+      dispatch(deposit({ buy, depositedAmount: exchangedamount }));
+      toast(
+        `${exchangedamount} ${buy.name} Exchanged for ${input} ${sell.name}`
+      );
+    } else if (coinExist.amount < Number(input)) {
+      toast("Insufficient balance");
+    }
+  }
+  console.log(exchangedamount);
   function handleCurrencyConvert() {
     const result =
-      (sellCoinCurrentPrice?.market_data?.current_price?.usd * enteredAmount) /
-      buyCoinCurrentPrice?.market_data?.current_price?.usd;
-    setconvertedCoin(result.toFixed(5));
+      (sellPrice?.market_data?.current_price?.usd * input) /
+      buyPrice?.market_data?.current_price?.usd;
+    setexchangedamount(result.toFixed(5));
   }
 
   useEffect(() => {
     handleCurrencyConvert();
-  }, [enteredAmount]);
+  }, [input]);
 
   useEffect(() => {
+    dispatch(updateamount(""));
     getCurrentPrice();
-  }, [buyCoin, sellCoin]);
+  }, [buy, sell]);
 
   return (
-    <div className="grid h-full grid-rows-[auto_auto_auto_auto] gap-4 rounded-md border-2 border-accent p-4 ">
+    <div className=" grid h-full gap-4 rounded-md bg-gradient1 px-4 py-4 shadow-exchangeCardShadow dark:shadow-none">
       <Toaster />
-      <p className="text-3xl font-semibold text-lightPrimary dark:text-DarkPrimary">
-        Exchange Coins
-      </p>
+      <p className="text-3xl font-semibold text-DarkPrimary">Exchange Coins</p>
       <Modal isModalOpen={isOpen} update={setIsOpen} />
-      <div className="mx-auto grid grid-cols-1 place-content-center gap-6 md:mx-0 md:grid-cols-2">
-        <div className="grid grid-rows-2 gap-6">
-          <div className="grid grid-cols-[50px_1fr] items-center gap-2">
-            <p className="font-medium text-green">Buy</p>
-            <ComboxBox data={coins} coin={buyCoin} update={updateBuyCoin} />
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6">
+          <div className=" grid w-full grid-cols-[auto_1fr] items-center gap-4">
+            <p className="font-medium text-DarkPrimary">Buy</p>
+            <div className=" w-full">
+              <ComboxBox data={coins} coin={buy} update={updateBuy} />
+            </div>
           </div>
-          <div className=" grid grid-cols-[50px_1fr] items-center gap-2">
-            <p className=" font-medium text-red">Sell</p>
-            <ComboxBox data={coins} coin={sellCoin} update={updateSellCoin} />
+          <div className=" flex items-center gap-4">
+            <p className=" font-medium text-DarkPrimary">Sell</p>
+            <ComboxBox data={coins} coin={sell} update={updateSell} />
           </div>
         </div>
-
-        <div className="grid grid-rows-2 gap-6 text-center">
-          {!amountConverted ? (
-            <p className="text-base text-lightSecondary dark:text-DarkSecondary">
+        <div className="grid grid-cols-1">
+          {exchangedamount > 0 ? (
+            <div className=" relative flex h-full items-center justify-end gap-2 pt-4 text-DarkPrimary sm:pt-0 ">
+              <span className=" absolute top-[-.8rem] left-2 rounded-full bg-gradient2 px-2 py-1 text-[10px] uppercase text-lightPrimary opacity-70 shadow-exchangeCardShadow">
+                You will get :
+              </span>
+              <p className=" text-center text-2xl font-bold">
+                {exchangedamount}
+              </p>
+              <p className="uppercase"> {buy?.symbol}</p>
+            </div>
+          ) : (
+            <p className="m-auto  text-center text-base text-DarkPrimary">
               Enter Value
             </p>
-          ) : (
-            <p className="text-base font-bold text-accent">
-              {amountConverted}{" "}
-              <span className=" uppercase"> {buyCoin?.symbol}</span>
-            </p>
           )}
-          <div className="relative">
+          <div className=" relative">
             <input
               type="number"
-              className="h-fit w-full border-none bg-light py-2 px-4 pl-3 pr-10 text-base font-medium leading-5 text-lightPrimary shadow-md placeholder:text-lightSecondary focus:outline-none dark:bg-dark dark:text-DarkPrimary placeholder:dark:text-DarkSecondary"
-              placeholder="0.002 Btc"
+              className="h-fit w-full min-w-[144px] rounded-full border-none bg-light py-3 px-6 pr-10 text-base font-medium leading-5 text-lightPrimary shadow-md placeholder:text-lightSecondary focus:outline-none"
+              placeholder="eg. 0.1xx"
+              value={input}
               onChange={(e) => dispatch(updateamount(e.target.value))}
             />
             <svg
@@ -119,7 +131,7 @@ const Exchange = () => {
               viewBox="0 0 24 24"
               strokeWidth={2}
               stroke="currentColor"
-              className="absolute top-0 right-3 bottom-0 h-full w-5 stroke-accent/70"
+              className="absolute top-3 right-3 w-5 stroke-accent"
             >
               <path
                 strokeLinecap="round"
@@ -130,18 +142,16 @@ const Exchange = () => {
           </div>
         </div>
       </div>
-      {buyCoinCurrentPrice && sellCoinCurrentPrice ? (
+      {buyPrice && sellPrice ? (
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1 }}
-          className="relative flex items-center justify-around"
+          className="flex items-center justify-around"
         >
-          <div className=" flex items-center gap-2">
-            <img src={sellCoinCurrentPrice?.image?.thumb} alt="" />
-            <p className="">
-              {sellCoinCurrentPrice?.market_data?.current_price?.usd} Usd
-            </p>
+          <div className=" flex items-center gap-2 text-white">
+            <img src={sellPrice?.image?.thumb} alt="" />
+            <p>{sellPrice?.market_data?.current_price?.usd} Usd</p>
           </div>
           <motion.svg
             initial={{ scale: 1 }}
@@ -151,7 +161,7 @@ const Exchange = () => {
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={3}
-            className="h-6 w-6 stroke-accent"
+            className="h-6 w-6 stroke-white"
           >
             <path
               strokeLinecap="round"
@@ -160,11 +170,9 @@ const Exchange = () => {
             />
           </motion.svg>
 
-          <div className=" flex items-center gap-2">
-            <img src={buyCoinCurrentPrice?.image?.thumb} alt="" />
-            <p className="">
-              {buyCoinCurrentPrice?.market_data?.current_price?.usd} Usd
-            </p>
+          <div className=" flex items-center gap-2 text-white">
+            <img src={buyPrice?.image?.thumb} alt="" />
+            <p className="">{buyPrice?.market_data?.current_price?.usd} Usd</p>
           </div>
         </motion.div>
       ) : null}

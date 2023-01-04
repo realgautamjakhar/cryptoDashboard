@@ -3,29 +3,54 @@ import { createSlice } from "@reduxjs/toolkit";
 const userSlice = createSlice({
   name: "user",
   initialState: {
-    coins: [
-      { id: "bitcoin", name: "Bitcoin", value: 300 },
-      { id: "ethereum", name: "Ethereum", value: 300 },
-      { id: "tether", name: "Tether", value: 400 },
-      { id: "ripple", name: "XRP", value: 1000 },
+    portfolio: [
+      { id: "bitcoin", name: "Bitcoin", amount: 300 },
+      { id: "ethereum", name: "Ethereum", amount: 300 },
+      { id: "tether", name: "Tether", amount: 400 },
+      { id: "ripple", name: "XRP", amount: 1000 },
     ],
   },
   reducers: {
     withdrew(state, action) {
-      const { sellCoin } = action.payload;
-      const withdrewAmount = action.payload.enteredAmount;
+      const { sell } = action.payload;
+      const withdrewAmount = action.payload.input;
       // find coin in coins
-      const coinIndex = state.coins.findIndex(
-        (item) => item.id === sellCoin.id
+      const coinIndex = state.portfolio.findIndex(
+        (item) => item.id === sell.id
       );
       if (coinIndex > -1) {
-        const existingCoin = state.coins[coinIndex];
-        if (existingCoin.value > Number(withdrewAmount)) {
-          existingCoin.value = existingCoin.value - Number(withdrewAmount);
+        const existingCoin = state.portfolio[coinIndex];
+        if (existingCoin.amount > Number(withdrewAmount)) {
+          existingCoin.amount = existingCoin.amount - Number(withdrewAmount);
         }
+      }
+    },
+    deposit(state, action) {
+      const { buy, depositedAmount } = action.payload;
+      const dpAmount = Number(depositedAmount);
+      console.log(typeof dpAmount, dpAmount);
+      //Find if coin already exist and update its value by the amount (new amount deposited)
+      const index = state.portfolio.findIndex((coin) => coin.id === buy.id);
+
+      //if coin exist
+      if (index > -1) {
+        const existingCoin = state.portfolio[index];
+        existingCoin.amount += dpAmount;
+      }
+      //Coin dosnt exist in user portfolio
+      else {
+        state.portfolio.push({
+          id: buy.id,
+          name: buy.name,
+          amount: dpAmount,
+        });
+        // state.portfolio = [
+        //   ...state,
+        //   { id: buy.id, name: buy.name, amount: depositedAmount },
+        // ];
       }
     },
   },
 });
-export const { withdrew } = userSlice.actions;
+export const { withdrew, deposit } = userSlice.actions;
 export default userSlice.reducer;

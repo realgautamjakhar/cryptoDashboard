@@ -12,8 +12,6 @@ const Market = () => {
   const dispatch = useDispatch();
   const loading = useSelector((state) => state.market.loading);
   const filter = useSelector((state) => state.chartFilter.filter);
-
-  const coin = useSelector((state) => state.chart.coin);
   //Return marketcap in billions
   const marketCapTobillion = (marketcap) => {
     return (marketcap / 1000000000).toFixed(2);
@@ -31,7 +29,7 @@ const Market = () => {
     dispatch(fetchChartData({ coin: id, baseCurr, filter }));
   }
   return (
-    <div className="mx-auto grid h-full w-full grid-rows-[auto_1fr] rounded-md border-2 border-accent">
+    <div className="mx-auto grid h-full w-full grid-rows-[auto_1fr] rounded-md ">
       <h2 className="border-b-2 border-lightSecondary/20 px-4 py-4 text-end text-3xl font-semibold capitalize text-lightPrimary dark:border-DarkSecondary/20 dark:text-DarkPrimary">
         Cryptocurrency by market cap
       </h2>

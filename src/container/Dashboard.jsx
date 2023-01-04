@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 const Dashboard = () => {
   return (
     <>
-      <section className="gridLayout bg-light dark:bg-dark">
+      <section className="gridLayout bg-lightGradient dark:bg-darkGradient">
         <motion.div
           initial={{
             opacity: 0,

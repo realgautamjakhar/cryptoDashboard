@@ -38,25 +38,64 @@
 .chart {
       grid-area: chart;
       padding: 1rem;
-
 }
 .portfolio{
       grid-area: portfolio;
-      padding: 1rem;
+      padding: 2rem;
 }
 .exchange {
       grid-area: exchange;
-      padding: 1rem;
+      padding: 2rem;
+}
+
+@media screen and (max-width: 1380px) {
+      .gridLayout{
+            display: grid;
+            height: 100vh;
+            grid-template-rows:auto  1fr;
+            grid-template-columns: repeat(2,1fr);
+            grid-template-areas: 'search marketcap'
+            'chart marketcap'
+            'portfolio exchange'
+      }
+      .marketcap{
+            grid-area: marketcap;
+            height: 100%;
+            padding: 1rem;
+      }
+      .portfolio{
+            grid-area: portfolio;
+            padding: 1rem;
+      }
+      .exchange {
+            grid-area: exchange;
+            padding: 1rem;
+      }
 }
 
 @media screen and (max-width: 1000px) {
       .gridLayout{
             display: grid;
-            grid-template-columns: 1fr;
-            grid-template-areas: 'search  '
-                              'marketcap '
-                              'chart '
-                              'portfolio'
-                              'exchange';
+            height: auto;
+            grid-template-rows:auto;
+            grid-template-columns: auto;
+            grid-template-areas: 'search'
+            'marketcap'
+            'chart'
+            'portfolio'
+            'exchange';
+      }
+      .marketcap{
+            grid-area: marketcap;
+            height: 500px;
+            padding: 1rem;
+      }
+      .portfolio{
+            grid-area: portfolio;
+            padding: 1rem;
+      }
+      .exchange {
+            grid-area: exchange;
+            padding: 1rem;
       }
 }
