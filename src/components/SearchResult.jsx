@@ -2,23 +2,32 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Staggercontainer, Staggeritem } from "../utils/animation";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchChartData, updateCoin } from "../features/chartSlice";
+import {
+  fetchChartData,
+  fetchCoinDetails,
+  updateCoin,
+} from "../features/chartSlice";
+
 const SearchResult = ({ data, setinput }) => {
   const dispatch = useDispatch();
   const baseCurr = useSelector((state) => state.search.baseCurrency);
   const filter = useSelector((state) => state.chartFilter.filter);
+
+  //Search list selection if any coin selected it will update chart coin and data
   function handleSearchClick(coin) {
-    const { id } = coin;
     setinput("");
     dispatch(updateCoin(coin));
-    dispatch(fetchChartData({ coin: id, baseCurr, filter }));
+    dispatch(fetchCoinDetails(coin.id));
+    dispatch(fetchChartData({ coin: coin.id, baseCurr, filter }));
   }
   return (
     <motion.ul
       variants={Staggercontainer}
-      initial="hidden"
-      animate="show"
-      className="custom-scroll dark:bg-darkSecondary absolute top-20 right-0 flex max-h-[400px] w-full flex-col gap-2 overflow-x-hidden overflow-y-scroll rounded-xl bg-light py-4   px-4 dark:bg-dark  "
+      initial={{ height: 0, opacity: 0 }}
+      whileInView={{ height: "revert", opacity: 1 }}
+      exit={{ height: 0, opacity: 0 }}
+      transition={{ type: "spring" }}
+      className="custom-scroll dark:bg-darkSecondary absolute top-20 right-0 flex max-h-[400px] w-full flex-col gap-2 overflow-x-hidden overflow-y-scroll rounded-xl bg-light py-4  px-4 dark:bg-dark"
     >
       {data.coins?.map((coin) => {
         const { id, name, thumb, market_cap_rank } = coin;
