@@ -1,8 +1,37 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import { toast } from "react-hot-toast";
+import { useSelector, useDispatch } from "react-redux";
+import { deposit, withdrew } from "../../features/userSlice";
+import { error, success } from "../../utils/toast";
 
-export default function Modal({ isModalOpen, update }) {
+export default function Modal({
+  isModalOpen,
+  update,
+  portfolio,
+  amount,
+  exchangedamount,
+}) {
+  const dispatch = useDispatch();
+  const buy = useSelector((state) => state.exchange.buy);
+  const sell = useSelector((state) => state.exchange.sell);
+
   function closeModal() {
+    if (!portfolio.length) {
+      toast("You are Broke");
+    }
+
+    //Check weather user have selling coin and amount above the limit
+    const coinExist = portfolio.find((coin) => coin.id === sell.id);
+
+    if (coinExist) {
+      dispatch(withdrew({ sell, amount: Number(amount) }));
+      dispatch(deposit({ buy, depositedAmount: exchangedamount }));
+      toast(
+        `${exchangedamount} ${buy.name} Exchanged for ${amount} ${sell.name}`,
+        success
+      );
+    }
     update(false);
   }
 
@@ -38,13 +67,11 @@ export default function Modal({ isModalOpen, update }) {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Payment successful
+                    Transaction Details
                   </Dialog.Title>
                   <div className="mt-2">
-                    <p className="text-sm text-gray-500">
-                      Your payment has been successfully submitted. We’ve sent
-                      you an email with all of the details of your order.
-                    </p>
+                    <p className="text-sm text-gray-500">{buy.name}</p>
+                    <p className="text-sm text-gray-500">{sell.name}</p>
                   </div>
 
                   <div className="mt-4">
@@ -53,7 +80,7 @@ export default function Modal({ isModalOpen, update }) {
                       className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                       onClick={closeModal}
                     >
-                      Got it, thanks!
+                      Confirm
                     </button>
                   </div>
                 </Dialog.Panel>

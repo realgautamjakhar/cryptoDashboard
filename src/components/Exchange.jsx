@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { base } from "../api/api";
-import { Toaster, toast } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateamount,
@@ -13,17 +13,16 @@ import {
 import ComboxBox from "./headlessUI/ComboBox";
 import Modal from "./headlessUI/Modal";
 import { useState } from "react";
-import { deposit, withdrew } from "../features/userSlice";
 import { motion } from "framer-motion";
 import { error, success } from "../utils/toast";
 
 const Exchange = () => {
   let [isOpen, setIsOpen] = useState(false);
   const portfolio = useSelector((state) => state.user.portfolio);
-  const coins = useSelector((state) => state.market.value);
-  const buy = useSelector((state) => state.exchange.buy);
-  const sell = useSelector((state) => state.exchange.sell);
-  const input = useSelector((state) => state.exchange.amount);
+  const coins = useSelector((state) => state.market.value); // Option coins
+  const buy = useSelector((state) => state.exchange.buy); //Coin User buying
+  const sell = useSelector((state) => state.exchange.sell); // Coin User selling
+  const amount = useSelector((state) => state.exchange.amount); // Amount to be exchanged
   const [exchangedamount, setexchangedamount] = useState(0);
   const buyPrice = useSelector((state) => state.exchange.buyPrice);
   const sellPrice = useSelector((state) => state.exchange.sellPrice);
@@ -37,6 +36,7 @@ const Exchange = () => {
     return await response.json();
   }
 
+  //Get Current Price of the Coins if both are selected by user
   async function getCurrentPrice() {
     if (buy.id && sell.id) {
       dispatch(updateBuyPrice(await fetchCurrentPrice(buy)));
@@ -44,35 +44,37 @@ const Exchange = () => {
     }
   }
 
-  function handleExchange() {
+  //Check balance and open modal to confirm transaction
+  function validateBalance() {
+    //Check weather user selected coins or not
+    if (!buy.id || !sell.id) {
+      toast("Select Coins", error);
+    }
+    //Check weather user have coin to exchange or not (any balance)
     if (!portfolio.length) {
       toast("You are Broke");
     }
-
     //Check weather user have selling coin and amount above the limit
     const coinExist = portfolio.find((coin) => coin.id === sell.id);
-
-    if (coinExist.amount > Number(input)) {
-      dispatch(withdrew({ sell, input }));
-      dispatch(deposit({ buy, depositedAmount: exchangedamount }));
-      toast(
-        `${exchangedamount} ${buy.name} Exchanged for ${input} ${sell.name}`,
-        success
-      );
-    } else if (coinExist.amount < Number(input)) {
+    if (coinExist.amount > Number(amount) && Number(amount) > 0) {
+      setIsOpen(true);
+    } else if (coinExist.amount <= Number(amount)) {
       toast("Insufficient balance", error);
     }
   }
+
+  //Convert the amount in buying Coin and display on screen and also update exchangeamount
   function handleCurrencyConvert() {
     const result =
-      (sellPrice?.market_data?.current_price?.usd * input) /
+      (sellPrice?.market_data?.current_price?.usd * amount) /
       buyPrice?.market_data?.current_price?.usd;
     setexchangedamount(result.toFixed(5));
   }
 
+  //Run everytime if user input changes (sell amount)
   useEffect(() => {
     handleCurrencyConvert();
-  }, [input]);
+  }, [amount]);
 
   useEffect(() => {
     dispatch(updateamount(""));
@@ -81,16 +83,14 @@ const Exchange = () => {
 
   return (
     <div className="grid h-full gap-4 rounded-xl bg-gradient1 px-4 py-4 shadow-exchangeCardShadow dark:shadow-none">
-      <Toaster
-        containerStyle={{
-          top: 20,
-          left: 20,
-          bottom: 20,
-          right: 20,
-        }}
-      />
       <p className="text-3xl font-semibold text-DarkPrimary">Exchange Coins</p>
-      <Modal isModalOpen={isOpen} update={setIsOpen} />
+      <Modal
+        isModalOpen={isOpen}
+        update={setIsOpen}
+        portfolio={portfolio}
+        exchangedamount={exchangedamount}
+        amount={amount}
+      />
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         <div className="grid grid-cols-1 gap-6">
           <div className=" grid w-full grid-cols-[auto_1fr] items-center gap-4">
@@ -125,7 +125,7 @@ const Exchange = () => {
               type="number"
               className="h-fit w-full min-w-[128px] rounded-full border-none bg-light py-3 px-6 pr-10 text-base font-medium leading-5 text-lightPrimary shadow-md placeholder:text-lightSecondary focus:outline-none"
               placeholder="eg. 0.1xx"
-              value={input}
+              value={amount}
               onChange={(e) => dispatch(updateamount(e.target.value))}
             />
             <svg
@@ -182,7 +182,7 @@ const Exchange = () => {
 
       <button
         className="mx-auto h-fit w-fit rounded-md bg-accent px-4 py-2 font-semibold text-white"
-        onClick={handleExchange}
+        onClick={validateBalance}
       >
         Exchange
       </button>

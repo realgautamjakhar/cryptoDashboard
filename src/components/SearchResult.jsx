@@ -27,7 +27,7 @@ const SearchResult = ({ data, setinput }) => {
       whileInView={{ height: "revert", opacity: 1 }}
       exit={{ height: 0, opacity: 0 }}
       transition={{ type: "spring" }}
-      className="custom-scroll dark:bg-darkSecondary absolute top-20 right-0 flex max-h-[400px] w-full flex-col gap-2 overflow-x-hidden overflow-y-scroll rounded-xl bg-light py-4  px-4 dark:bg-dark"
+      className=" custom-scroll dark:bg-darkSecondary absolute top-20 right-0 flex max-h-[400px] w-full flex-col gap-2 overflow-x-hidden overflow-y-scroll rounded-xl bg-light py-4  px-4 dark:bg-dark"
     >
       {data.coins?.map((coin) => {
         const { id, name, thumb, market_cap_rank } = coin;

@@ -13,7 +13,7 @@ const userSlice = createSlice({
   reducers: {
     withdrew(state, action) {
       const { sell } = action.payload;
-      const withdrewAmount = action.payload.input;
+      const withdrewAmount = action.payload.amount;
       // find coin in coins
       const coinIndex = state.portfolio.findIndex(
         (item) => item.id === sell.id

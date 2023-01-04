@@ -27,8 +27,8 @@ export const initialLoadAnimation = {
     scale: 1,
     transition: {
       type: "tween",
-      delayChildren: 0.5,
-      staggerChildren: 0.5,
+      delayChildren: 0.2,
+      staggerChildren: 0.2,
     },
   },
 };

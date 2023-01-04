@@ -5,6 +5,7 @@ import Search from "../components/Search";
 import Portfolio from "../components/Portfolio";
 import { motion } from "framer-motion";
 import { initialLoadAnimation, Staggeritem } from "../utils/animation";
+import { Toaster } from "react-hot-toast";
 
 const Dashboard = () => {
   return (
@@ -14,6 +15,7 @@ const Dashboard = () => {
       animate="show"
       className="gridLayout bg-lightGradient transition-all duration-500 ease-in-out dark:bg-darkGradient"
     >
+      <Toaster />
       <motion.div
         variants={Staggeritem}
         animate={{ opacity: 1, scale: 1, y: 0 }}
