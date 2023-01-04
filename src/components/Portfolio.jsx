@@ -2,11 +2,12 @@ import React from "react";
 import { useSelector } from "react-redux";
 import PorfolioList from "./PorfolioList";
 import RadarChart from "../Chart/RadarChart";
-
+import { motion } from "framer-motion";
+import { initialLoadAnimation } from "../utils/animation";
 const Portfolio = () => {
   const portfolio = useSelector((state) => state.user.portfolio);
   return (
-    <div className=" grid h-full grid-rows-[auto_1fr] gap-4 rounded-md bg-gradient2 p-4 shadow-portfolioCardShadow dark:shadow-none">
+    <div className="grid h-full grid-rows-[auto_1fr] gap-4 rounded-xl bg-gradient2 p-4 shadow-portfolioCardShadow dark:shadow-none">
       <div className="flex items-center justify-between">
         <h2 className="text-3xl font-semibold text-lightPrimary ">Portfolio</h2>
         <p className=" text-lightSecondary ">Your Tokens</p>

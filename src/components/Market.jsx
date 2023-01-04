@@ -3,13 +3,17 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { fetchMarket } from "../features/marketSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchChartData, updateCoin } from "../features/chartSlice";
+import {
+  fetchChartData,
+  fetchCoinDetails,
+  updateCoin,
+} from "../features/chartSlice";
 import { Staggercontainer, Staggeritem } from "../utils/animation";
 const Market = () => {
   //Redux
+  const dispatch = useDispatch();
   const baseCurr = useSelector((state) => state.search.baseCurrency);
   const data = useSelector((state) => state.market.value);
-  const dispatch = useDispatch();
   const loading = useSelector((state) => state.market.loading);
   const filter = useSelector((state) => state.chartFilter.filter);
   //Return marketcap in billions
@@ -23,11 +27,13 @@ const Market = () => {
   }, [baseCurr]);
 
   //Chart update on click
-  function handleClick(coin) {
+  function handleSelection(coin) {
     const { id } = coin;
     dispatch(updateCoin(coin));
+    dispatch(fetchCoinDetails(coin.id));
     dispatch(fetchChartData({ coin: id, baseCurr, filter }));
   }
+
   return (
     <div className="mx-auto grid h-full w-full grid-rows-[auto_1fr] rounded-md ">
       <h2 className="border-b-2 border-lightSecondary/20 px-4 py-4 text-end text-3xl font-semibold capitalize text-lightPrimary dark:border-DarkSecondary/20 dark:text-DarkPrimary">
@@ -58,7 +64,7 @@ const Market = () => {
               <motion.li
                 variants={Staggeritem}
                 key={id}
-                onClick={() => handleClick(coin)}
+                onClick={() => handleSelection(coin)}
                 className="flex cursor-pointer justify-between rounded-md px-4 py-4 duration-300 ease-in-out hover:bg-accent/40"
               >
                 <div className="flex items-center gap-4">

@@ -5,6 +5,7 @@ import { Chart as ChartJS } from "chart.js/auto";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRef } from "react";
+import ChartFilter from "../components/ChartFilter";
 
 const BarChart = () => {
   const chartRef = useRef();
@@ -60,8 +61,9 @@ const BarChart = () => {
         height: "100%",
         width: "90%",
       }}
-      className=" grid place-content-center overflow-hidden"
+      className="grid place-content-center overflow-hidden pt-4"
     >
+      <ChartFilter />
       <Line ref={chartRef} data={UserData} />
     </div>
   );

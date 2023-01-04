@@ -12,6 +12,16 @@ export const fetchChartData = createAsyncThunk(
   }
 );
 
+export const fetchCoinDetails = createAsyncThunk(
+  "chart/coindetails",
+  async (coin) => {
+    const response = await fetch(
+      `${base}/coins/${coin}?localization=false&tickers=false&community_data=false&developer_data=false&sparkline=false`
+    );
+    return await response.json();
+  }
+);
+
 const chartSlice = createSlice({
   name: "chart",
   initialState: {
@@ -19,6 +29,7 @@ const chartSlice = createSlice({
     loading: false,
     error: "",
     coin: {},
+    coinDetails: [],
   },
   reducers: {
     updateCoin(state, action) {
@@ -35,6 +46,16 @@ const chartSlice = createSlice({
         state.loading = false;
       }),
       builder.addCase(fetchChartData.pending, (state) => {
+        state.loading = true;
+      });
+    builder.addCase(fetchCoinDetails.fulfilled, (state, action) => {
+      state.coinDetails = action.payload;
+      state.loading = false;
+    }),
+      builder.addCase(fetchCoinDetails.rejected, (state, action) => {
+        state.loading = false;
+      }),
+      builder.addCase(fetchCoinDetails.pending, (state) => {
         state.loading = true;
       });
   },

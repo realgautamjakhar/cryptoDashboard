@@ -23,12 +23,12 @@ export default function ComboxBox({ data, coin, update }) {
     <div className=" w-full">
       <Combobox value={selected} onChange={setSelected}>
         <div className="relative">
-          <div className="relative w-full min-w-[144px] cursor-default overflow-hidden rounded-full bg-light text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 dark:bg-dark sm:text-sm">
+          <div className="relative w-full min-w-[128px] cursor-default overflow-hidden rounded-full bg-light text-left shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 dark:bg-dark sm:text-sm">
             <Combobox.Input
               className="text-basetext-lightPrimary  w-full border-none py-3 pl-4 pr-10
             focus:outline-none"
               displayValue={selected}
-              autocomplete="off"
+              autoComplete="off"
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Select Coin"
             />

@@ -4,37 +4,37 @@ import Market from "../components/Market";
 import Search from "../components/Search";
 import Portfolio from "../components/Portfolio";
 import { motion } from "framer-motion";
+import { initialLoadAnimation, Staggeritem } from "../utils/animation";
 
 const Dashboard = () => {
   return (
-    <>
-      <section className="gridLayout bg-lightGradient dark:bg-darkGradient">
-        <motion.div
-          initial={{
-            opacity: 0,
-            scale: 0,
-            y: -200,
-          }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="search z-10 flex items-center justify-center"
-        >
-          <Search />
-        </motion.div>
-        <div className="marketcap">
-          <Market />
-        </div>
-        <div className="chart">
-          <Charts />
-        </div>
-        <div className="portfolio">
-          <Portfolio />
-        </div>
-        <div className="exchange">
-          <Exchange />
-        </div>
-      </section>
-    </>
+    <motion.div
+      variants={initialLoadAnimation}
+      initial="hidden"
+      animate="show"
+      className="gridLayout bg-lightGradient transition-all duration-500 ease-in-out dark:bg-darkGradient"
+    >
+      <motion.div
+        variants={Staggeritem}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="search z-10 flex items-center justify-center"
+      >
+        <Search />
+      </motion.div>
+      <motion.div variants={Staggeritem} className="marketcap">
+        <Market />
+      </motion.div>
+      <motion.div variants={Staggeritem} className="chart">
+        <Charts />
+      </motion.div>
+      <motion.div variants={Staggeritem} className="portfolio">
+        <Portfolio />
+      </motion.div>
+      <motion.div variants={Staggeritem} className="exchange">
+        <Exchange />
+      </motion.div>
+    </motion.div>
   );
 };
 

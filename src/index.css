@@ -41,14 +41,14 @@
 }
 .portfolio{
       grid-area: portfolio;
-      padding: 2rem;
+      padding: 1rem;
 }
 .exchange {
       grid-area: exchange;
-      padding: 2rem;
+      padding: 1rem;
 }
 
-@media screen and (max-width: 1380px) {
+@media screen and (max-width: 1280px) {
       .gridLayout{
             display: grid;
             height: 100vh;
@@ -73,10 +73,11 @@
       }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 768px) {
       .gridLayout{
             display: grid;
             height: auto;
+            
             grid-template-rows:auto;
             grid-template-columns: auto;
             grid-template-areas: 'search'

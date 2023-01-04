@@ -5,13 +5,15 @@ import SearchResult from "./SearchResult";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchBestMatches } from "../features/searchSlice";
 import ThemeToggle from "./ThemeToggle";
+import { AnimatePresence } from "framer-motion";
+
 const Search = () => {
   const [input, setinput] = useState("");
   const bestMatches = useSelector((state) => state.search.bestMatches);
-
   const dispatch = useDispatch();
 
   //Fetch all the related coin to the search input
+  //Reason = Making a search api call because coin list is very large and hard to render to the ui if you are pre fetching at the first render
   const fetchMatches = async () => {
     dispatch(fetchBestMatches(input));
   };
@@ -33,6 +35,25 @@ const Search = () => {
           }
         }}
       />
+
+      {input && (
+        <button className="pr-2" onClick={() => setinput("")} title="Clear">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={3}
+            className="h-6 w-6 stroke-accent"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      )}
+
       <button onClick={() => fetchMatches()}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -48,10 +69,12 @@ const Search = () => {
           />
         </svg>
       </button>
+      <AnimatePresence>
+        {input.length > 0 && bestMatches?.coins?.length > 0 && (
+          <SearchResult setinput={setinput} data={bestMatches} />
+        )}
+      </AnimatePresence>
 
-      {input && bestMatches && (
-        <SearchResult setinput={setinput} data={bestMatches} />
-      )}
       {/* <ThemeToggle /> */}
     </div>
   );

@@ -80,7 +80,7 @@ const Exchange = () => {
   }, [buy, sell]);
 
   return (
-    <div className=" grid h-full gap-4 rounded-md bg-gradient1 px-4 py-4 shadow-exchangeCardShadow dark:shadow-none">
+    <div className="grid h-full gap-4 rounded-xl bg-gradient1 px-4 py-4 shadow-exchangeCardShadow dark:shadow-none">
       <Toaster
         containerStyle={{
           top: 20,
@@ -123,7 +123,7 @@ const Exchange = () => {
           <div className=" relative">
             <input
               type="number"
-              className="h-fit w-full min-w-[144px] rounded-full border-none bg-light py-3 px-6 pr-10 text-base font-medium leading-5 text-lightPrimary shadow-md placeholder:text-lightSecondary focus:outline-none"
+              className="h-fit w-full min-w-[128px] rounded-full border-none bg-light py-3 px-6 pr-10 text-base font-medium leading-5 text-lightPrimary shadow-md placeholder:text-lightSecondary focus:outline-none"
               placeholder="eg. 0.1xx"
               value={input}
               onChange={(e) => dispatch(updateamount(e.target.value))}

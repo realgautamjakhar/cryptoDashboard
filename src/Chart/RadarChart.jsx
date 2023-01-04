@@ -15,7 +15,6 @@ const options = {
     },
   },
   scales: {
-    display: false,
     r: {
       angleLines: {
         display: false,

@@ -30,7 +30,7 @@ const BaseCurrency = () => {
   return (
     <Listbox value={selected} onChange={setSelected}>
       <div className="relative mt-1">
-        <Listbox.Button className="relative w-full cursor-default rounded-lg bg-light py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 dark:bg-dark sm:text-sm">
+        <Listbox.Button className="relative w-full cursor-pointer cursor-default rounded-lg bg-light py-2 pl-3 pr-10 text-left focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 dark:bg-dark sm:text-sm">
           <span className="block truncate text-lightPrimary dark:text-DarkPrimary">
             {selected.name}
           </span>
@@ -39,7 +39,7 @@ const BaseCurrency = () => {
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
-              strokeWidth={1.5}
+              strokeWidth={3}
               className="h-4 w-4 stroke-accent"
             >
               <path
@@ -56,12 +56,12 @@ const BaseCurrency = () => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="absolute z-40 mt-1 max-h-60 w-full overflow-auto rounded-md bg-light py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-dark sm:text-sm">
+          <Listbox.Options className="absolute z-40 mt-1 max-h-60 w-full overflow-auto rounded-md bg-light py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5  focus:outline-none dark:bg-dark sm:text-sm">
             {currencies.map((currency, index) => (
               <Listbox.Option
                 key={index}
                 className={({ active }) =>
-                  `relative mx-auto w-full cursor-default select-none py-1 ${
+                  `relative  w-full cursor-default select-none py-1 hover:cursor-pointer ${
                     active
                       ? "bg-light text-accent dark:bg-dark"
                       : "text-lightSecondary dark:text-DarkSecondary"

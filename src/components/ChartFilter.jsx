@@ -3,6 +3,9 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateFilter } from "../features/chartFilterSlice";
 import { fetchChartData } from "../features/chartSlice";
+import { motion } from "framer-motion";
+import { Staggercontainer, Staggeritem } from "../utils/animation";
+
 const data = [
   {
     id: 1,
@@ -45,24 +48,29 @@ const ChartFilter = () => {
   }, [filter]);
 
   return (
-    <ul className=" list-none flex gap-2 absolute top-4 right-4">
+    <motion.ul
+      variants={Staggercontainer}
+      initial="hidden"
+      animate="show"
+      className="absolute right-0 top-0 flex gap-2"
+    >
       {data.map((item) => {
         return (
-          <li key={item.id}>
+          <motion.li variants={Staggeritem} key={item.id}>
             <button
               className={`${
                 filter === item.value
-                  ? "bg-accent text-white"
+                  ? "bg-accent text-white "
                   : "bg-transparent"
-              } px-2 py-1 text-xs border-2 border-accent/20 rounded-md`}
+              }  rounded-md px-2 py-1 text-xs`}
               onClick={() => handleFilter(item)}
             >
               {item.text}
             </button>
-          </li>
+          </motion.li>
         );
       })}
-    </ul>
+    </motion.ul>
   );
 };
 
