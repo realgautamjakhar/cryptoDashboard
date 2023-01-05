@@ -13,7 +13,7 @@ const Charts = () => {
         <BarChart />
       ) : (
         <div className="flex w-full items-center justify-center">
-          Please Coin to Render chart
+          Please Select Coin to Render chart
         </div>
       )}
     </div>
