@@ -48,17 +48,22 @@ const Exchange = () => {
   function validateBalance() {
     //Check weather user selected coins or not
     if (!buy.id || !sell.id) {
-      toast("Select Coins", error);
+      return toast("Select Coins", error);
+    }
+    if (!amount) {
+      return toast("Select Amount", error);
     }
     //Check weather user have coin to exchange or not (any balance)
     if (!portfolio.length) {
-      toast("You are Broke");
+      return toast("You are Broke");
     }
     //Check weather user have selling coin and amount above the limit
     const coinExist = portfolio.find((coin) => coin.id === sell.id);
-    if (coinExist.amount > Number(amount) && Number(amount) > 0) {
+    if (!coinExist) {
+      return toast(`You dont have ${sell.name}`, error);
+    } else if (coinExist?.amount > amount && amount > 0) {
       setIsOpen(true);
-    } else if (coinExist.amount <= Number(amount)) {
+    } else if (coinExist?.amount <= amount) {
       toast("Insufficient balance", error);
     }
   }
@@ -126,7 +131,7 @@ const Exchange = () => {
               className="h-fit w-full min-w-[128px] rounded-full border-none bg-light py-3 px-6 pr-10 text-base font-medium leading-5 text-lightPrimary shadow-md placeholder:text-lightSecondary focus:outline-none"
               placeholder="eg. 0.1xx"
               value={amount}
-              onChange={(e) => dispatch(updateamount(e.target.value))}
+              onChange={(e) => dispatch(updateamount(Number(e.target.value)))}
             />
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -181,7 +186,8 @@ const Exchange = () => {
       ) : null}
 
       <button
-        className="mx-auto h-fit w-fit rounded-md bg-accent px-4 py-2 font-semibold text-white"
+        disabled={!(amount > 0)}
+        className="mx-auto h-fit  rounded-full bg-accent px-4 py-2 font-semibold text-white hover:bg-accent/80 disabled:bg-transparent"
         onClick={validateBalance}
       >
         Exchange

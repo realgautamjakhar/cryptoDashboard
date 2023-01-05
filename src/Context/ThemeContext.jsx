@@ -8,13 +8,11 @@ export const ThemeProvider = ({ children }) => {
   const [theme, settheme] = useState("light");
   const handleTheme = () => {
     if (theme === "dark") {
-      settheme("ligth");
       document.documentElement.classList.add("dark");
-      localStorage.theme = "dark";
-    } else {
-      settheme("dark");
+      settheme("light");
+    } else if (theme === "light") {
       document.documentElement.classList.remove("dark");
-      localStorage.theme = "light";
+      settheme("dark");
     }
   };
 

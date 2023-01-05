@@ -10,7 +10,7 @@ const CoinDetails = () => {
       initial="hidden"
       animate="show"
       transition={{ type: "tween" }}
-      className="relative grid h-fit w-full grid-cols-2 gap-2 rounded-xl bg-gradient1 p-4 font-medium text-DarkPrimary shadow-exchangeCardShadow  xl:h-full xl:max-w-xs xl:grid-cols-1 xl:grid-rows-2 xl:overflow-hidden"
+      className="relative grid h-fit w-full grid-cols-2 gap-2 rounded-xl bg-gradient1 p-4 font-medium text-DarkPrimary shadow-exchangeCardShadow dark:shadow-none  xl:h-full xl:max-w-xs xl:grid-cols-1 xl:grid-rows-2 xl:overflow-hidden"
     >
       <img
         src={coin?.image?.large}

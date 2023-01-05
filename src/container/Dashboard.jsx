@@ -13,7 +13,7 @@ const Dashboard = () => {
       variants={initialLoadAnimation}
       initial="hidden"
       animate="show"
-      className="gridLayout bg-lightGradient transition-all duration-500 ease-in-out dark:bg-darkGradient"
+      className="gridLayout bg-lightGradient transition-all duration-200 ease-in-out dark:bg-darkGradient"
     >
       <Toaster />
       <motion.div

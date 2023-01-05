@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchBestMatches } from "../features/searchSlice";
 import ThemeToggle from "./ThemeToggle";
 import { AnimatePresence } from "framer-motion";
+import { debounce } from "../utils/debounce";
+import { useEffect } from "react";
 
 const Search = () => {
   const [input, setinput] = useState("");
@@ -14,10 +16,14 @@ const Search = () => {
 
   //Fetch all the related coin to the search input
   //Reason = Making a search api call because coin list is very large and hard to render to the ui if you are pre fetching at the first render
-  const fetchMatches = async () => {
+  const fetchdata = async () => {
     dispatch(fetchBestMatches(input));
   };
 
+  // const data = debounce(() => fetchdata(input), 2000);
+  // useEffect(() => {
+  //   data();
+  // }, [input]);
   return (
     <div className=" relative flex w-full max-w-[600px] rounded-[50px] bg-light  px-4  py-2 shadow-shadow1 dark:border-2 dark:border-accent dark:bg-dark dark:shadow-none">
       <BaseCurrency />
@@ -31,7 +37,7 @@ const Search = () => {
         onChange={(e) => setinput(e.target.value)}
         onKeyDown={(e) => {
           if (e.code === "Enter") {
-            fetchMatches();
+            fetchdata();
           }
         }}
       />
@@ -75,7 +81,7 @@ const Search = () => {
         )}
       </AnimatePresence>
 
-      {/* <ThemeToggle /> */}
+      <ThemeToggle />
     </div>
   );
 };

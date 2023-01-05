@@ -44,10 +44,6 @@ const userSlice = createSlice({
           name: buy.name,
           amount: dpAmount,
         });
-        // state.portfolio = [
-        //   ...state,
-        //   { id: buy.id, name: buy.name, amount: depositedAmount },
-        // ];
       }
     },
   },
