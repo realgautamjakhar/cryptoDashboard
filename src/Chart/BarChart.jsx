@@ -1,10 +1,45 @@
 import React from "react";
 import { useState } from "react";
-import { Line, Bar } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRef } from "react";
+
+const opts = {
+  responsive: true,
+  plugins: {
+    legend: {
+      display: false,
+    },
+  },
+
+  scales: {
+    x: {
+      ticks: {
+        color: "rgba(162,102,246)",
+      },
+      border: {
+        display: false,
+      },
+      grid: {
+        display: false,
+      },
+    },
+    y: {
+      ticks: {
+        color: "rgba(162,102,246)",
+      },
+      border: {
+        display: false,
+      },
+      grid: {
+        display: false,
+        color: "#ffffff",
+      },
+    },
+  },
+};
 
 const BarChart = ({ chartData }) => {
   const chartRef = useRef();
@@ -51,7 +86,7 @@ const BarChart = ({ chartData }) => {
     });
   }, [chartData]);
 
-  return <Bar ref={chartRef} data={UserData} />;
+  return <Bar ref={chartRef} data={UserData} options={opts} />;
 };
 
 export default BarChart;

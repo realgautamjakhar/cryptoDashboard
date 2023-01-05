@@ -5,6 +5,56 @@ import { Chart as ChartJS } from "chart.js/auto";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRef } from "react";
+const opts = {
+  responsive: true,
+  plugins: {
+    legend: {
+      display: false,
+    },
+    elements: {
+      point: {
+        display: false,
+        backgroundColor: "white",
+        hoverBackgroundColor: "white",
+      },
+    },
+  },
+
+  scales: {
+    x: {
+      ticks: {
+        color: "rgba(162,102,246)",
+      },
+      border: {
+        display: false,
+      },
+      grid: {
+        display: false,
+      },
+      title: {
+        display: true,
+        text: "Days",
+        color: "rgba(162,102,246)",
+      },
+    },
+    y: {
+      ticks: {
+        color: "rgba(162,102,246)",
+      },
+      border: {
+        display: false,
+      },
+      grid: {
+        display: false,
+      },
+      title: {
+        display: true,
+        text: "Price",
+        color: "rgba(162,102,246)",
+      },
+    },
+  },
+};
 
 const LineChart = ({ chartData }) => {
   const chartRef = useRef();
@@ -41,17 +91,21 @@ const LineChart = ({ chartData }) => {
         {
           label: `${coin.id}`,
           borderColor: "transparent",
+          border: "none",
           fill: true,
           hitRadius: 30,
           tension: 0.4,
           backgroundColor: generateGradient(),
           data: chartData?.prices?.map((d) => d[1]),
+          pointStyle: false,
+          // pointRadius: 12,
+          // pointHoverRadius: 10,
         },
       ],
     });
   }, [chartData]);
 
-  return <Line ref={chartRef} data={UserData} />;
+  return <Line ref={chartRef} data={UserData} options={opts} />;
 };
 
 export default LineChart;
