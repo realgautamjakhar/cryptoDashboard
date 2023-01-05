@@ -81,7 +81,7 @@ const Search = () => {
         )}
       </AnimatePresence>
 
-      <ThemeToggle />
+      {/* <ThemeToggle /> */}
     </div>
   );
 };
