@@ -20,7 +20,8 @@ module.exports = {
       backgroundImage: {
         lightGradient:
           "linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);",
-        darkGradient: "linear-gradient(60deg, #29323c 0%, #485563 100%);",
+        darkGradient:
+          "linear-gradient( 110.3deg,  rgba(73,93,109,1) 4.3%, rgba(49,55,82,1) 96.7% )",
         gradient2: "linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);",
         gradient1:
           "radial-gradient( circle farthest-corner at 10% 20%,  rgba(162,102,246,1) 0%, rgba(203,159,249,1) 90% );",
