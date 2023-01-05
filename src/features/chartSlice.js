@@ -42,7 +42,7 @@ const chartSlice = createSlice({
       state.loading = false;
     }),
       builder.addCase(fetchChartData.rejected, (state, action) => {
-        console.log(action);
+        state.error = action.error?.message;
         state.loading = false;
       }),
       builder.addCase(fetchChartData.pending, (state) => {

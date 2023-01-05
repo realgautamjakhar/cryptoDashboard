@@ -6,7 +6,7 @@ const ThemeToggle = () => {
   const { handleTheme, theme } = useContext(ThemeContext);
   return (
     <button
-      className="px-4 py-2 transition-all duration-300 ease-in-out hover:scale-125"
+      className="pl-4 transition-all duration-300 ease-in-out hover:scale-125"
       onClick={() => handleTheme()}
       name="Theme toggle button"
     >

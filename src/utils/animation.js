@@ -32,3 +32,18 @@ export const initialLoadAnimation = {
     },
   },
 };
+
+export const draw = {
+  hidden: { pathLength: 0, opacity: 0 },
+  visible: {
+    pathLength: 1,
+    opacity: 1,
+    transition: {
+      pathLength: {
+        type: "tween",
+        duration: 3,
+        repeat: Infinity,
+      },
+    },
+  },
+};

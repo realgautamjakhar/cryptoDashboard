@@ -62,7 +62,6 @@ const CoinDetails = () => {
         </p>
 
         <p className=" flex items-center gap-2 text-base">
-          % :
           <span
             className={`rounded-full px-4  text-base font-semibold ${
               coin?.market_data?.price_change_percentage_24h_in_currency?.usd >

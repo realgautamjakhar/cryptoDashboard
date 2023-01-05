@@ -4,7 +4,8 @@ import { toast } from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
 import { deposit, withdrew } from "../../features/userSlice";
 import { error, success } from "../../utils/toast";
-
+import { motion } from "framer-motion";
+import { draw } from "../../utils/animation";
 export default function Modal({
   isModalOpen,
   update,
@@ -71,19 +72,23 @@ export default function Modal({
                     Transaction Details
                   </Dialog.Title>
                   <div className="font-base mt-6 grid place-content-center items-center gap-2 ">
-                    <div className=" flex items-center gap-4">
+                    <div className="flex items-center justify-center gap-4">
                       <img
                         src={sell.image}
                         className="h-10 w-10"
                         alt={sell.name}
                       />
-                      <p className="text-xl font-bold">{sell.name}</p>
-                      <p className="font-semibold  capitalize">
-                        {amount} {sell.symbol}
-                      </p>
+                      <div className="flex flex-col items-start">
+                        <p className="text-xl font-semibold">{sell.name}</p>
+                        <p className="font-medium capitalize">
+                          {amount} {sell.symbol}
+                        </p>
+                      </div>
                     </div>
-
-                    <svg
+                    <motion.svg
+                      variants={draw}
+                      initial="hidden"
+                      animate="visible"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -91,22 +96,27 @@ export default function Modal({
                       stroke="currentColor"
                       className="h-10 w-full"
                     >
-                      <path
+                      <motion.path
+                        variants={draw}
+                        initial="hidden"
+                        animate="visible"
                         strokeLinecap="round"
                         strokeLinejoin="round"
                         d="M12 4.5v15m0 0l6.75-6.75M12 19.5l-6.75-6.75"
                       />
-                    </svg>
-                    <div className=" flex items-center gap-2">
+                    </motion.svg>
+                    <div className=" flex items-center justify-center gap-4">
                       <img
                         src={buy.image}
                         className="h-10 w-10"
                         alt={buy.name}
                       />
-                      <p className="text-xl font-bold">{buy.name}</p>
-                      <p className="font-semibold  capitalize">
-                        {exchangedamount} {buy.symbol}
-                      </p>
+                      <div className="flex flex-col items-start">
+                        <p className="text-xl font-semibold">{buy.name}</p>
+                        <p className=" font-medium capitalize">
+                          {exchangedamount} {buy.symbol}
+                        </p>
+                      </div>
                     </div>
                   </div>
 

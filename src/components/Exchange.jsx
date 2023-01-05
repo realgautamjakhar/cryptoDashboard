@@ -15,7 +15,7 @@ import Modal from "./headlessUI/Modal";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { error, success } from "../utils/toast";
-
+import { draw } from "../utils/animation";
 const Exchange = () => {
   let [isOpen, setIsOpen] = useState(false);
   const portfolio = useSelector((state) => state.user.portfolio);
@@ -97,6 +97,7 @@ const Exchange = () => {
         amount={amount}
       />
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {/* Buy Sell Button  */}
         <div className="grid grid-cols-1 gap-6">
           <div className=" grid w-full grid-cols-[auto_1fr] items-center gap-4">
             <p className="font-medium text-DarkPrimary">Buy</p>
@@ -109,10 +110,11 @@ const Exchange = () => {
             <ComboxBox data={coins} coin={sell} update={updateSell} />
           </div>
         </div>
+        {/* Input  */}
         <div className="grid grid-cols-1">
           {exchangedamount > 0 ? (
             <div className=" relative flex h-full items-center justify-end gap-2 pt-4 text-DarkPrimary sm:pt-0 ">
-              <span className=" absolute top-[-.8rem] left-2 rounded-full bg-gradient2 px-2 py-1 text-[10px] uppercase text-lightPrimary opacity-70 shadow-exchangeCardShadow">
+              <span className=" absolute top-[-.8rem] left-2 rounded-full px-2 py-1 text-[12px] uppercase">
                 You will get :
               </span>
               <p className=" text-center text-2xl font-bold">
@@ -150,41 +152,6 @@ const Exchange = () => {
           </div>
         </div>
       </div>
-      {buyPrice && sellPrice ? (
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="flex items-center justify-around"
-        >
-          <div className=" flex items-center gap-2 text-white">
-            <img src={sellPrice?.image?.thumb} alt="" />
-            <p>{sellPrice?.market_data?.current_price?.usd} Usd</p>
-          </div>
-          <motion.svg
-            initial={{ scale: 1 }}
-            animate={{ scale: [1.1, 0.9, 1.1] }}
-            transition={{ duration: 1, repeat: Infinity }}
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={3}
-            className="h-6 w-6 stroke-white"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-            />
-          </motion.svg>
-
-          <div className=" flex items-center gap-2 text-white">
-            <img src={buyPrice?.image?.thumb} alt="" />
-            <p className="">{buyPrice?.market_data?.current_price?.usd} Usd</p>
-          </div>
-        </motion.div>
-      ) : null}
-
       <button
         disabled={!(amount > 0)}
         className="mx-auto h-fit  rounded-full bg-accent px-4 py-2 font-semibold text-white hover:bg-accent/80 disabled:bg-transparent"

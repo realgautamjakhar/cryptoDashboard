@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { base } from "../api/api";
 
+//Only for search
 export const fetchBestMatches = createAsyncThunk(
   "search/bestmatches",
   async (coin) => {
@@ -13,16 +14,13 @@ const searchSlice = createSlice({
   name: "search",
   initialState: {
     //Searching dropdown
-    bestMatches: [],
-    loading: false,
-    error: "",
-    //Searched Coin info for chart fetching and base currency
-    searchedCoin: [],
-    baseCurrency: "usd",
+    bestMatches: [], // Fetch best match depending on the search input
+    loading: false, // you may use it in ui
+    error: "", // if any error occur
+    baseCurrency: "usd", // Initially usd is base currency (and data sidebar will fetch usd data)
   },
   reducers: {
     updateBaseCurrency(state, action) {
-      console.log(action.payload);
       state.baseCurrency = action.payload;
     },
   },
@@ -35,7 +33,7 @@ const searchSlice = createSlice({
         state.loading = true;
       }),
       builder.addCase(fetchBestMatches.rejected, (state, action) => {
-        state.error = action.payload.error.message;
+        state.error = action.error.message;
         state.loading = false;
       });
   },
