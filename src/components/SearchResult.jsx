@@ -8,14 +8,14 @@ import {
   updateCoin,
 } from "../features/chartSlice";
 
-const SearchResult = ({ data, setinput }) => {
+const SearchResult = ({ data, clearInput }) => {
   const dispatch = useDispatch();
   const baseCurr = useSelector((state) => state.search.baseCurrency);
   const filter = useSelector((state) => state.chartFilter.filter);
 
   //Search list selection if any coin selected it will update chart coin and data
   function handleSearchClick(coin) {
-    setinput("");
+    clearInput();
     dispatch(updateCoin(coin));
     dispatch(fetchCoinDetails(coin.id));
     dispatch(fetchChartData({ coin: coin.id, baseCurr, filter }));

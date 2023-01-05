@@ -6,27 +6,49 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchBestMatches } from "../features/searchSlice";
 import ThemeToggle from "./ThemeToggle";
 import { AnimatePresence } from "framer-motion";
+import { useRef } from "react";
 const Search = () => {
-  const [input, setinput] = useState("");
+  const inputRef = useRef();
+  const timeout = useRef();
+
+  const [isOpen, setisOpen] = useState(false);
   const bestMatches = useSelector((state) => state.search.bestMatches);
   const dispatch = useDispatch();
 
   //Fetch all the related coin to the search input
   const fetchData = () => {
-    dispatch(fetchBestMatches(input));
+    dispatch(fetchBestMatches(inputRef?.current?.value));
+  };
+
+  const handleDebounceSearch = () => {
+    clearTimeout(timeout.current);
+    if (inputRef?.current?.value?.length < 4) {
+      return null;
+    }
+    timeout.current = setTimeout(() => {
+      dispatch(fetchBestMatches(inputRef?.current.value));
+      setisOpen(true);
+    }, 1000);
+  };
+
+  const clearInput = () => {
+    setisOpen(false);
+    if (inputRef?.current) {
+      inputRef.current.value = null;
+    }
   };
 
   return (
     <div className=" relative flex w-full max-w-[600px] rounded-[50px] bg-light  px-4  py-2 shadow-shadow1 dark:border-2 dark:border-accent dark:bg-dark dark:shadow-none">
       <BaseCurrency />
       <input
+        ref={inputRef}
         type="text"
         name="input"
         id="input"
         className="w-full bg-transparent px-4 py-2 text-lightPrimary placeholder:text-lightSecondary focus:outline-none dark:text-DarkPrimary placeholder:dark:text-DarkSecondary "
         placeholder="Search Crypto  "
-        value={input}
-        onChange={(e) => setinput(e.target.value)}
+        onChange={handleDebounceSearch}
         onKeyDown={(e) => {
           if (e.code === "Enter") {
             fetchData();
@@ -34,8 +56,8 @@ const Search = () => {
         }}
       />
 
-      {input && (
-        <button className="pr-2" onClick={() => setinput("")} title="Clear">
+      {inputRef?.current?.value?.length > 0 && (
+        <button className="pr-2" onClick={clearInput} title="Clear">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -68,9 +90,7 @@ const Search = () => {
         </svg>
       </button>
       <AnimatePresence>
-        {input.length > 0 && bestMatches?.coins?.length > 0 && (
-          <SearchResult setinput={setinput} data={bestMatches} />
-        )}
+        {isOpen && <SearchResult clearInput={clearInput} data={bestMatches} />}
       </AnimatePresence>
 
       <ThemeToggle />
