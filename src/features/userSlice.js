@@ -28,7 +28,6 @@ const userSlice = createSlice({
     deposit(state, action) {
       const { buy, depositedAmount } = action.payload;
       const dpAmount = Number(depositedAmount);
-      console.log(typeof dpAmount, dpAmount);
       //Find if coin already exist and update its value by the amount (new amount deposited)
       const index = state.portfolio.findIndex((coin) => coin.id === buy.id);
 

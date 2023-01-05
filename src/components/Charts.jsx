@@ -10,9 +10,6 @@ import CoinDetails from "./CoinDetails";
 const Charts = () => {
   const chartData = useSelector((state) => state.chart.chartData);
   const type = useSelector((state) => state.chartFilter.type);
-  useEffect(() => {
-    console.log(type);
-  }, [type]);
   return (
     <div className="relative flex h-full w-full flex-col items-center gap-10  xl:flex-row">
       {chartData.prices ? (
