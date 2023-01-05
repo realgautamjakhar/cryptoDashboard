@@ -20,7 +20,7 @@ const Dashboard = () => {
         variants={Staggeritem}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="search z-10 flex items-center justify-center"
+        className="search z-10 mt-10 flex items-center justify-center md:mt-0 "
       >
         <Search />
       </motion.div>
@@ -33,7 +33,7 @@ const Dashboard = () => {
       <motion.div variants={Staggeritem} className="portfolio">
         <Portfolio />
       </motion.div>
-      <motion.div variants={Staggeritem} className="exchange">
+      <motion.div variants={Staggeritem} className="exchange mb-10 md:mb-0">
         <Exchange />
       </motion.div>
     </motion.div>
