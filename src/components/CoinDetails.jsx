@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import { initialLoadAnimation } from "../utils/animation";
 const CoinDetails = () => {
-  const coin = useSelector((state) => state.chart.coinDetails);
+  const coin = useSelector((state) => state.chart.coin);
   return (
     <motion.div
       variants={initialLoadAnimation}

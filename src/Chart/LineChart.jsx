@@ -1,12 +1,12 @@
 import React from "react";
 import { useState } from "react";
-import { Line, Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useRef } from "react";
 
-const BarChart = ({ chartData }) => {
+const LineChart = ({ chartData }) => {
   const chartRef = useRef();
   const coin = useSelector((state) => state.chart.coin);
 
@@ -51,7 +51,7 @@ const BarChart = ({ chartData }) => {
     });
   }, [chartData]);
 
-  return <Bar ref={chartRef} data={UserData} />;
+  return <Line ref={chartRef} data={UserData} />;
 };
 
-export default BarChart;
+export default LineChart;

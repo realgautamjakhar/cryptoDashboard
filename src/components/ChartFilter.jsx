@@ -43,7 +43,6 @@ const ChartFilter = () => {
   const handleFilter = (item) => {
     dispatch(updateFilter(item.value));
   };
-  console.log(type);
   useEffect(() => {
     const { id } = coin;
     dispatch(fetchChartData({ coin: id, baseCurr, filter }));

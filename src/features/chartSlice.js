@@ -28,8 +28,7 @@ const chartSlice = createSlice({
     chartData: [],
     loading: false,
     error: "",
-    coin: {},
-    coinDetails: [],
+    coin: {}, // Coin Selected and of which chart is rendering
   },
   reducers: {
     updateCoin(state, action) {
@@ -49,7 +48,7 @@ const chartSlice = createSlice({
         state.loading = true;
       });
     builder.addCase(fetchCoinDetails.fulfilled, (state, action) => {
-      state.coinDetails = action.payload;
+      state.coin = action.payload;
       state.loading = false;
     }),
       builder.addCase(fetchCoinDetails.rejected, (state, action) => {

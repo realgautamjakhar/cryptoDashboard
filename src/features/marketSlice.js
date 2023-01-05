@@ -27,7 +27,7 @@ const marketSlice = createSlice({
     });
     builder.addCase(fetchMarket.rejected, (state, action) => {
       console.log(action);
-      state.error = action.payload.error.message;
+      state.error = action.error.message;
     });
   },
 });
