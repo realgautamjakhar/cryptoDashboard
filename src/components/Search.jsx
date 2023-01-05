@@ -15,11 +15,6 @@ const Search = () => {
   const bestMatches = useSelector((state) => state.search.bestMatches);
   const dispatch = useDispatch();
 
-  //Fetch all the related coin to the search input
-  const fetchData = () => {
-    dispatch(fetchBestMatches(inputRef?.current?.value));
-  };
-
   const handleDebounceSearch = () => {
     clearTimeout(timeout.current);
     if (inputRef?.current?.value?.length < 4) {
@@ -49,11 +44,6 @@ const Search = () => {
         className="w-full bg-transparent px-4 py-2 text-lightPrimary placeholder:text-lightSecondary focus:outline-none dark:text-DarkPrimary placeholder:dark:text-DarkSecondary "
         placeholder="Search Crypto  "
         onChange={handleDebounceSearch}
-        onKeyDown={(e) => {
-          if (e.code === "Enter") {
-            fetchData();
-          }
-        }}
       />
 
       {inputRef?.current?.value?.length > 0 && (
@@ -74,7 +64,7 @@ const Search = () => {
         </button>
       )}
 
-      <button onClick={() => fetchData()}>
+      <button>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
