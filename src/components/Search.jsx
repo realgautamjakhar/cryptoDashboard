@@ -20,10 +20,15 @@ const Search = () => {
     dispatch(fetchBestMatches(input));
   };
 
-  // const data = debounce(() => fetchdata(input), 2000);
-  // useEffect(() => {
-  //   data();
-  // }, [input]);
+  //Debounce to search something automatically call the fetchdata without pressing enter or clicking on the search button
+  const data = debounce(() => fetchdata(input), 5000);
+  useEffect(() => {
+    // Input length must be more than 3 to call debounce because the coin list is every long and it affect the performance of the app
+    if (input.length > 3) {
+      data();
+    }
+  }, [input]);
+
   return (
     <div className=" relative flex w-full max-w-[600px] rounded-[50px] bg-light  px-4  py-2 shadow-shadow1 dark:border-2 dark:border-accent dark:bg-dark dark:shadow-none">
       <BaseCurrency />
@@ -60,7 +65,7 @@ const Search = () => {
         </button>
       )}
 
-      <button onClick={() => fetchMatches()}>
+      <button onClick={() => fetchdata()}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

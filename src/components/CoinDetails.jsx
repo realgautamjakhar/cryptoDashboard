@@ -32,13 +32,13 @@ const CoinDetails = () => {
           <p className=" flex items-center gap-2 ">
             ATH:{" "}
             <span className=" text-base font-semibold ">
-              {coin?.market_data?.ath?.usd.toFixed(2)}
+              {coin?.market_data?.ath?.usd?.toFixed(2)}
             </span>
           </p>
           <p className=" flex items-center gap-2 ">
             ATL:{" "}
             <span className=" text-base font-semibold ">
-              {coin?.market_data?.atl?.usd.toFixed(2)}
+              {coin?.market_data?.atl?.usd?.toFixed(2)}
             </span>
           </p>
           <p className=" flex items-center gap-2">
@@ -55,10 +55,10 @@ const CoinDetails = () => {
           C : {coin?.market_data?.current_price?.usd.toFixed(2)}
         </p>
         <p className=" flex items-center gap-2 ">
-          24H: {coin?.market_data?.high_24h?.usd.toFixed(2)}{" "}
+          24H: {coin?.market_data?.high_24h?.usd?.toFixed(2)}{" "}
         </p>
         <p className=" flex items-center gap-2 ">
-          24L : {coin?.market_data?.low_24h?.usd.toFixed(2)}{" "}
+          24L : {coin?.market_data?.low_24h?.usd?.toFixed(2)}{" "}
         </p>
 
         <p className=" flex items-center gap-2 text-base">
@@ -71,7 +71,7 @@ const CoinDetails = () => {
                 : "bg-red"
             }`}
           >
-            {coin?.market_data?.price_change_percentage_24h_in_currency?.usd.toFixed(
+            {coin?.market_data?.price_change_percentage_24h_in_currency?.usd?.toFixed(
               2
             )}
             %

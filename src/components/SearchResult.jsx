@@ -34,7 +34,7 @@ const SearchResult = ({ data, setinput }) => {
         return (
           <motion.li
             variants={Staggeritem}
-            className=" relative grid cursor-pointer grid-cols-[auto_1fr] items-center gap-4  py-4 px-10 text-lightPrimary hover:bg-accent/70 hover:text-white   dark:text-DarkPrimary"
+            className=" relative grid cursor-pointer grid-cols-[auto_1fr] items-center gap-4  py-4 px-10 text-lightPrimary duration-300 ease-in-out hover:bg-accent/70 hover:text-white dark:text-DarkPrimary"
             key={id}
             onClick={() => handleSearchClick(coin)}
           >
