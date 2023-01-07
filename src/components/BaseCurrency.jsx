@@ -23,6 +23,8 @@ const currencies = [
 const BaseCurrency = () => {
   const dispatch = useDispatch();
   const [selected, setSelected] = useState(currencies[0]);
+
+  //On base currency change update the store and refetch the market data with new currency
   useEffect(() => {
     dispatch(updateBaseCurrency(selected.value));
   }, [selected]);

@@ -29,6 +29,7 @@ const Exchange = () => {
 
   const dispatch = useDispatch();
 
+  //Fetching coin data (exchange rate in usd)
   async function fetchCurrentPrice(coin) {
     const response = await fetch(
       `${base}/coins/${coin.id}?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false`
@@ -50,13 +51,7 @@ const Exchange = () => {
     if (!buy.id || !sell.id) {
       return toast("Select Coins", error);
     }
-    if (!amount) {
-      return toast("Select Amount", error);
-    }
-    //Check weather user have coin to exchange or not (any balance)
-    if (!portfolio.length) {
-      return toast("You are Broke");
-    }
+
     //Check weather user have selling coin and amount above the limit
     const coinExist = portfolio.find((coin) => coin.id === sell.id);
     if (!coinExist) {
@@ -98,7 +93,7 @@ const Exchange = () => {
       />
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {/* Buy Sell Button  */}
-        <div className="grid grid-cols-1 gap-6">
+        <div className="grid grid-cols-1 grid-rows-2 items-end gap-6">
           <div className=" grid w-full grid-cols-[auto_1fr] items-center gap-4">
             <p className="font-medium text-DarkPrimary">Buy</p>
             <div className=" w-full">
@@ -111,7 +106,7 @@ const Exchange = () => {
           </div>
         </div>
         {/* Input  */}
-        <div className="grid grid-cols-1">
+        <div className="grid grid-cols-1 grid-rows-2 items-end">
           {exchangedamount > 0 ? (
             <div className=" relative flex h-full items-center justify-end gap-2 pt-4 text-DarkPrimary sm:pt-0 ">
               <span className=" absolute top-[-.8rem] left-2 rounded-full px-2 py-1 text-[12px] uppercase">

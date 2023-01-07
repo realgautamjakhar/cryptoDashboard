@@ -8,8 +8,8 @@ import ChartFilter from "./ChartFilter";
 import CoinDetails from "./CoinDetails";
 
 const Charts = () => {
-  const chartData = useSelector((state) => state.chart.chartData);
-  const type = useSelector((state) => state.chartFilter.type);
+  const chartData = useSelector((state) => state.chart.chartData); // Chart data from store
+  const type = useSelector((state) => state.chartFilter.type); // Type of chart user selected (line is default)
   return (
     <div className="relative flex h-full w-full flex-col items-center gap-10  xl:flex-row">
       {chartData.prices ? (
@@ -25,6 +25,7 @@ const Charts = () => {
             className="grid place-content-center overflow-hidden pt-4"
           >
             <ChartFilter />
+            {/* Conditional Rendering of bar and line chart componenets  */}
             {type === "line" ? (
               <LineChart chartData={chartData} />
             ) : (
@@ -33,6 +34,7 @@ const Charts = () => {
           </div>
         </>
       ) : (
+        // If no coin select show this div with a message
         <div className="grid w-full place-content-center">
           Please Select Coin To Render Charts
         </div>
