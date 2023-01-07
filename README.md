@@ -18,7 +18,7 @@ A Crypto Dashboard app built with react js and tailwind css where a user can
 
 - Monitor Crypto Currencies
 - Select a coin and see chart for the same with some additional information like current price, high, low and ranking of the coin in crypto market depending on the marketcap
-- Portfolio section where user can see how much fund avaiable in his/her wallet
+- Portfolio section where user can see how much fund available  in his/her wallet
 - Exchange coin between different cryptocurrencies
 - Different chart user can select based on preference (Line and bar chart)
 - Dark mode
